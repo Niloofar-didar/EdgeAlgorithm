@@ -1,0 +1,2 @@
+"#Instance","TestCaseName","Algorithm","ExecutionTime","TotalProfit","TotalDataSize","ServerAssignment","Throughput"
+"0","testCase01.txt","GreedyAlgorithmPhase1","8","34.0","1800","[0, 0, 1, 0, 0, 0]","100.0"

@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="31d4296a-39c4-4baf-9a8f-dbbb16758d3c" name="Default Changelist" comment="Added functions to return server assignment and throughput of the algorithm" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="niloofari &lt;niloofar.didar@ymail.com&gt;" />
+      </list>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="1ySaPv6bgbgmloWrbmgOVV8W4bB" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="org.jetbrains.plugins.github.ui.GithubSettingsConfigurable" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.multiKnapsackAlgorithm.PGreedy" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\sanaz.rabinia\IdeaProjects\MultiKnapsackAlgorithm" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="MultiKnapsackAlgorithmSource" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.multiKnapsackAlgorithm.MultiKnapsackAlgorithmSource" />
+      <module name="MultiKnapsackAlgorithm" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.multiKnapsackAlgorithm.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.MultiKnapsackAlgorithmSource" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="31d4296a-39c4-4baf-9a8f-dbbb16758d3c" name="Default Changelist" comment="" />
+      <created>1632247490415</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1632247490415</updated>
+      <workItem from="1642784685028" duration="1782000" />
+    </task>
+    <task id="LOCAL-00001" summary="1. comment out sharing part to get a correct execution time for P-Greedy&#10;2. modifying source class">
+      <created>1632248941341</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1632248941341</updated>
+    </task>
+    <task id="LOCAL-00002" summary="added data for uniform distribution">
+      <created>1632249536494</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1632249536494</updated>
+    </task>
+    <task id="LOCAL-00003" summary="changed D-greedy algorithm and considered data assignment for each individual server">
+      <created>1632755690184</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1632755690184</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Added 9 more cases for 3 servers, 10 task, and 10 data">
+      <created>1632756430893</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1632756430893</updated>
+    </task>
+    <task id="LOCAL-00005" summary="modified D-Greedy and sorted all tasks in ascending order of request. &#10;added a break statement to resolve the issue with duplicated data assignments on servers.">
+      <created>1632932916947</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1632932916947</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Added functions to return server assignment and throughput of the algorithm">
+      <created>1643690379698</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1643690379698</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Added functions to return server assignment and throughput of the algorithm">
+      <created>1643690750773</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1643690750773</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Added functions to return server assignment and throughput of the algorithm">
+      <created>1643690843714</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1643690843714</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="1. comment out sharing part to get a correct execution time for P-Greedy&#10;2. modifying source class" />
+    <MESSAGE value="added data for uniform distribution" />
+    <MESSAGE value="changed D-greedy algorithm and considered data assignment for each individual server" />
+    <MESSAGE value="Added 9 more cases for 3 servers, 10 task, and 10 data" />
+    <MESSAGE value="modified D-Greedy and sorted all tasks in ascending order of request. &#10;added a break statement to resolve the issue with duplicated data assignments on servers." />
+    <MESSAGE value="Added functions to return server assignment and throughput of the algortihm" />
+    <MESSAGE value="Added functions to return server assignment and throughput of the algorithm" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added functions to return server assignment and throughput of the algorithm" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/multiKnapsackAlgorithm/PGreedy/PGreedyAlgorithm.java</url>
+          <line>113</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/multiKnapsackAlgorithm/DGreedyAlgorithm.java</url>
+          <line>108</line>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/multiKnapsackAlgorithm/DGreedyAlgorithm.java</url>
+          <line>47</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/multiKnapsackAlgorithm/TestCaseRunner.java</url>
+          <line>143</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/multiKnapsackAlgorithm/MultiKnapsackAlgorithmSource.java</url>
+          <line>32</line>
+          <option name="timeStamp" value="28" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/multiKnapsackAlgorithm/GreedyAlgorithmPhase1.java</url>
+          <line>206</line>
+          <option name="timeStamp" value="37" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/multiKnapsackAlgorithm/TestCaseRunner.java</url>
+          <line>76</line>
+          <option name="timeStamp" value="43" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/multiKnapsackAlgorithm/GreedyAlgorithmBase.java</url>
+          <line>547</line>
+          <option name="timeStamp" value="45" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/multiKnapsackAlgorithm/TestCaseRunner.java</url>
+          <line>151</line>
+          <option name="timeStamp" value="46" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/multiKnapsackAlgorithm/GreedyAlgorithmBase.java</url>
+          <line>555</line>
+          <option name="timeStamp" value="47" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/multiKnapsackAlgorithm/GreedyAlgorithmBase.java</url>
+          <line>558</line>
+          <option name="timeStamp" value="48" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="com.multiKnapsackAlgorithm.Task" memberName="dataTypeItems" />
+        <PinnedItemInfo parentTag="com.multiKnapsackAlgorithm.PGreedy.PGreedyAlgorithm" memberName="knapsackItems" />
+        <PinnedItemInfo parentTag="com.multiKnapsackAlgorithm.Knapsack" memberName="taskItems" />
+        <PinnedItemInfo parentTag="com.multiKnapsackAlgorithm.Knapsack" memberName="assignedDataTypeItems" />
+        <PinnedItemInfo parentTag="com.multiKnapsackAlgorithm.DGreedyAlgorithm" memberName="sum" />
+      </pinned-members>
+    </pin-to-top-manager>
+  </component>
+</project>
