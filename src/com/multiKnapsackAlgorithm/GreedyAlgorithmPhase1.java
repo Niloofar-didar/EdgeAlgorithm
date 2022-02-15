@@ -2,9 +2,8 @@ package com.multiKnapsackAlgorithm;
 
 import com.multiKnapsackAlgorithm.hm.Logger;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
+import java.util.*;
+import java.util.stream.IntStream;
 
 public class GreedyAlgorithmPhase1 extends GreedyAlgorithmBase{
 	public GreedyAlgorithmPhase1(String inputFilePath){
@@ -86,13 +85,13 @@ jTilda, we need an array first
 //			}
 			ArrayList<Integer> jTildaArray=new ArrayList<>();
 			if (sumPrimeSupport > 0) {
-				jTildaArray=getArgsMax(getSum(),getSumPrime());
+				jTildaArray=getArgsMax(getSum(),getSumPrime());// gets the index of data with largest shared data
 			} else {
 				jTildaArray=getArgsMax(getSum());// finds data index with maximum s value-> data with highest priority
 			}
 			// Implement JTilda Array Support
 			if (jTildaArray.size()>1){
-				jTilda= getSelectedDataTypeItemsSupport(jTildaArray);
+				jTilda= getSelectedDataTypeItemsSupport(jTildaArray);// gets the
 			}
 			else{
 				jTilda=jTildaArray.get(0);
@@ -127,6 +126,8 @@ jTilda, we need an array first
 			Logger.message("MultiKnapsack Algorithm -> Run ->\tknapsack task assignment: Begin");
 
 
+
+
 			//line 26 alg
 			for (Task sortedTaskItem:sortedTaskItems) {
 				if(sortedTaskItem.getEfficiency()>0){
@@ -136,27 +137,23 @@ jTilda, we need an array first
 
 						//First check if task efficiency is still non-zero
 						//After assigning taskItem to any knapsack set its efficiency to zero(To not let it be added again)
-//						if(knapsackItem.isTaskFeasibleToAssign(sortedTaskItem)
-//								&& sortedTaskItem.getEfficiency()>0
-//						)
 						// Greedy Algorithm: Version 1 -> line 34
 						if(knapsackItem.isTaskFeasibleToAssign(sortedTaskItem)	) // capacity is OK and task is not candidate
-						{
-
-							Logger.message("MultiKnapsack Algorithm -> Run ->\tknapsack task assignment->\t\tcandidTaskItem: Before Union");
-
-							Logger.message(getCandidTaskItems().size());
+						{//this.capacity-sortedTaskItem.getRequest()>=0
 
 							setCandidTaskItems (Task.union(getCandidTaskItems(),sortedTaskItem));// add the task to the candidate list
-							Logger.message("MultiKnapsack Algorithm -> Run ->\tknapsack task assignment->\t\tcandidTaskItem: After Union");
-							Logger.message(getCandidTaskItems().size());
-							Logger.message("MultiKnapsack Algorithm -> Run ->\tknapsack task assignment->\t\tcandidTaskItem: Done Union");
-
 
 							knapsackItem.setCapacity(knapsackItem.getCapacity()-sortedTaskItem.getRequest());// update server's cap
 							sortedTaskItem.setServer(knapsackItem.index);
 
-							knapsackItem.addTaskItem(sortedTaskItem);
+							for(int index: sortedTaskItem.getReqDataList())// adds all the required data of the assigned task to the assigned server
+						     	knapsackItem.indexOfData.add(index);
+
+							knapsackItem.addTaskItem(sortedTaskItem);// we assigned the task to the server, now it's time to also add its data to the corresponding set
+
+
+
+
 							sortedTaskItem.setEfficiency(0.0);
 							flag=false;
 							setTotalProfit(getTotalProfit()+sortedTaskItem.getProfit());
@@ -164,13 +161,7 @@ jTilda, we need an array first
 							knapsackItem.setUsed(true);
 
 						}
-//						sortedTaskItem.setCandid(true);
-////						setTaskItems(Task.subtract(getTaskItems(),sortedTaskItem));
-//						for (Task currentTask:getTaskItems()) {
-//							if( currentTask.getIndex()== sortedTaskItem.getIndex() ){
-//								currentTask.setCandid(true);
-//							}
-//						}
+
 						if (!flag)
 						break;
 					}
@@ -186,27 +177,106 @@ jTilda, we need an array first
 				}
 			}
 			//count of servers issue 19
-			int candidDataTypeItemCounter=0;
-			for (Knapsack knapsackItem : getKnapsackItems()) {
-				candidDataTypeItemCounter++;
-			}
+//			int candidDataTypeItemCounter=0;
+//			for (Knapsack knapsackItem : getKnapsackItems()) {
+//				if(knapsackItem.indexOfData.contains(jTilda))
+//				   candidDataTypeItemCounter++;
+//			}
 
 
 			Logger.message("MultiKnapsack Algorithm -> Run ->\tknapsack task assignment: End");
 			// stores assigned data type information
 			setCandidDataTypeItems(DataType.union(getCandidDataTypeItems(),getDataTypeItems()[jTilda]));
-			setTotalDataSize(getTotalDataSize() + getDataTypeItems()[jTilda].getSize()*candidDataTypeItemCounter);
+			//setTotalDataSize(getTotalDataSize() + getDataTypeItems()[jTilda].getSize()*candidDataTypeItemCounter);// this is wrong, just gets back dataType row one
 			sum[jTilda]=0;
 			setSum(sum);
 			for (Knapsack currentKnapsackItem : getKnapsackItems()) {
-				currentKnapsackItem.setUsed(false);
+				currentKnapsackItem.setUsed(false);/// ????
 			}
 		}
 
 
+//********************************///////////
+// //This is to calculate datasharing for DSTA
+
+		Set<Integer> dataUSedSet =  new HashSet<>();;
+		for( Knapsack server: getKnapsackItems()){
+			for(Integer dataIndex:server.indexOfData)
+					setTotalDataSize( getTotalDataSize() + getDataSize()[dataIndex]);
+		}
+
+
+
+
+		// records data used after DSTA
+
 		setCandidDataTypeItemsByCheckingFinalStates();
 		ArrayList<DataType>  finalCandidDataTypeItems= getCandidDataTypeItems();
         setCandidDataTypeItemsProportionValue();
+
+		// starting local search algorithm -> best fit, second round
+		HashMap<Integer, List<Integer>> setOfTasks= TaskSetMap();// returns a map of un assigned and assigned tasks after DSTA
+
+		// here we need to reset server's capacity for the new assignment and efficiency function calculation
+		setKnapsackItems(serverInf,",");// reset servers
+		Arrays.sort(getKnapsackItems()); //sort servers in increasing order for best fit local search
+		setTotalProfitset(0.0);// reset total profit of set
+		setTotalDataSizeSet(0);// reset datasieze of set
+		initializeSetItems(setOfTasks);//  creates a list of set , assigns the profit, request, and efficiency
+
+
+
+
+		Task[] sortedSetItems=new Task[getSetItems().size()];
+		sortedSetItems= getSetItems().toArray(sortedSetItems) ;
+		Arrays.sort(sortedSetItems, Collections.reverseOrder());// sorts array of set based on the efficiency parameter
+        //System.out.println(sortedSetItems[0]);
+
+		for (Task sortedsetItem:sortedSetItems) {// start to assign the task set to the servers
+
+			if(sortedsetItem.getEfficiency()>0){
+				//The flag is for double checking purpose
+				boolean flag=true;
+				for (Knapsack knapsackItem:getKnapsackItems()) {//loop over servers to find the first server that can process the task (if is not assigned before and capacity is OK)
+
+						if(knapsackItem.isTaskFeasibleToAssignCapacityWise(sortedsetItem)	) // capacity is OK for the assignment
+					{
+
+						knapsackItem.setCapacity(knapsackItem.getCapacity()-sortedsetItem.getRequest());// update server's cap
+						sortedsetItem.setServer(knapsackItem.index);
+
+						for(int index: sortedsetItem.getReqDataList())// adds all the required data of the assigned task to the assigned server
+							knapsackItem.indexOfData.add(index);
+
+
+						flag=false;
+						setTotalProfitset(getTotalProfitset()+sortedsetItem.getProfit());
+						knapsackItem.setUsed(true);
+
+					}
+
+					if (!flag)
+						break;
+				}
+				sortedsetItem.setCandid(true);
+
+			}
+		}
+
+		//********************************///////////
+// //This is to calculate datasharing for local search
+
+	//	Set<Integer> dataUSedSetlocals =  new HashSet<>();;
+		for( Knapsack server: getKnapsackItems()){
+			for(Integer dataIndex:server.indexOfData)
+				setTotalDataSizeSet( getTotalDataSizeSet() + getDataSize()[dataIndex]);// totalprofit for all sets
+		}
+
+
+		String [] servers= getserversSetAssignment(getSetItems());
+		Logger.message( "end of local search");
 	}
+
+
 
 }

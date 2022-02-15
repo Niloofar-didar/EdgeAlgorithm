@@ -7,8 +7,13 @@ public class AlgorithmRunResult {
     private long elapsedTime;
     private Double totalProfit;
     private Integer totalDataSize;
-    private Integer[] serverAssignment;
+    private Integer totalDataSizeSet;
+    private String[] serverAssignment;
     private float throughput;
+    private Double phase2totalProfit;
+    private String[] phase2serverAssignment;
+    private float phase2throughput;
+
     public AlgorithmRunResult(){
 
     }
@@ -50,6 +55,23 @@ public class AlgorithmRunResult {
         this.totalProfit = totalProfit;
     }
 
+
+    public Double getTotalProfitphase2() {
+        return phase2totalProfit;
+    }
+
+    public void setTotalProfitphase2(Double totalProfit) {
+        this.phase2totalProfit = totalProfit;
+    }
+
+    public Integer getTotalDataSizephase2() {
+        return totalDataSizeSet;
+    }
+
+    public void setTotalDataSizephase2(Integer totalDataSize) {
+        this.totalDataSizeSet = totalDataSize;
+    }
+
     public Integer getTotalDataSize() {
         return totalDataSize;
     }
@@ -58,24 +80,46 @@ public class AlgorithmRunResult {
         this.totalDataSize = totalDataSize;
     }
 
-    public void setServerAssignment(Integer [] servers) {
+    public void setServerAssignment(String [] servers) {
         this.serverAssignment = servers;
 
     }
 
-    public Integer[] getServerAssignment() {
+    public String[] getServerAssignment() {
         return serverAssignment;
 
     }
 
+    public void setServerAssignmentphase2(String [] servers) {
+        this.phase2serverAssignment = servers;
+
+    }
+    public String[] getServerAssignmentphase2() {
+        return phase2serverAssignment;
+
+    }
+
+
+
+
     public void setThroughput(Float thr) {
         this.throughput = thr;
-
     }
 
     public float getThroughput() {
        return throughput;
-
     }
+
+
+
+    public void setThroughputphase2(Float thr) {
+        this.phase2throughput = thr;
+    }
+
+    public float getThroughputphase2() {
+        return phase2throughput;
+    }
+
+
 
 }

@@ -15,26 +15,44 @@ public class MultiKnapsackAlgorithmSource {
 
 		String instanceDirectoryName="instance";
 
-		String[] inputFilePaths=new String[]{"testCase01.txt"};
-		// nil int numberOfInstances=10;
-		int numberOfInstances=1; // folders # to execute
-				/* nil
-				"1.LowDemand-LowSharing.txt","2.LowDemand-AverageSharing.txt","3.LowDemand-HighSharing.txt",
+		//String[] inputFilePaths=new String[]{"testCase00.txt"};
+		// nil
+		int numberOfInstances=10;
+		//int numberOfInstances=10; // folders # to execute
+			//	/* nil
+		String[] inputFilePaths=new String[]{	"1.LowDemand-LowSharing.txt"
+
+				,"2.LowDemand-AverageSharing.txt","3.LowDemand-HighSharing.txt",
 				"4.AverageDemand-LowSharing.txt","5.AverageDemand-AverageSharing.txt","6.AverageDemand-HighSharing.txt",
 				"7.HighDemand-LowSharing.txt", "8.HighDemand-AverageSharing.txt","9.HighDemand-HighSharing.txt"};
 
 
 			String inputFilePath="2.LowDemand-AverageSharing.txt";
 
-				 */
-		String inputFilePath="2.LowDemand-AverageSharing.txt";
+			//	 */
+
 
 			// nil commented Using Automated Runner
-			/*TestCaseRunner oTestCaseRunner=new TestCaseRunner(instanceDirectoryName,numberOfInstances,inputFilePaths);
-		    oTestCaseRunner.executeAutomation();*/
+			TestCaseRunner oTestCaseRunner=new TestCaseRunner(instanceDirectoryName,numberOfInstances,inputFilePaths);
 
-		   TestCaseRunner oTestCaseRunner=new TestCaseRunner("init",numberOfInstances,inputFilePaths);
+
+		//nil cmn
+		  // TestCaseRunner oTestCaseRunner=new TestCaseRunner("init",numberOfInstances,inputFilePaths);
+
 		oTestCaseRunner.executeAutomation();
+
+
+
+
+
+
+
+
+
+
+
+
+
 			//oTestCaseRunner.runAlgorithms("data\\"+instanceDirectoryName+"1\\"+ inputFilePaths[0]);
 
 			//oTestCaseRunner.runTestCases(instanceDirectoryName,0,inputFilePaths);

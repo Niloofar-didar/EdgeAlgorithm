@@ -1,6 +1,8 @@
 package com.multiKnapsackAlgorithm;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Knapsack extends KnapsackComparator implements Comparable<Knapsack> {
 	private Double capacity;
@@ -10,8 +12,10 @@ public class Knapsack extends KnapsackComparator implements Comparable<Knapsack>
     private Double value;
     //This property is just being used by PGreedyAlgorithmV2
     private Double totalDataSize;
+	public Set<Integer> indexOfData= new HashSet<>();// index of data that a server has
+
 	//This property is designed to use in PGreedyAlgorithm
-	ArrayList<DataType> assignedDataTypeItems;
+	ArrayList<DataType> assignedDataTypeItems;// an
 
 	public ArrayList<DataType> getAssignedDataTypeItems() {
 		return assignedDataTypeItems;

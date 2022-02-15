@@ -1,9 +1,6 @@
 package com.multiKnapsackAlgorithm;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 public class Task implements Comparable<Task>{
 	private int index;
@@ -13,7 +10,8 @@ public class Task implements Comparable<Task>{
 	private Double efficiency;
 	private boolean isCandid;
 	public Integer assignedServer;
-
+	public List<Integer> subsetTask; // holds set data
+	private  Set<Integer> reqDataList;
 
 	// Helper property for DGreedy Algorithm
 	private boolean isDataTypeNominated;
@@ -27,13 +25,19 @@ public class Task implements Comparable<Task>{
 		this.request = request;
 		this.dataTypeItems = dataTypeItems;
 		this.efficiency=Double.NaN;
-		this.setServer(-1);// initially a task is not assigned to a server
+		this.assignedServer=(-1);// initially a task is not assigned to a server
+		this.subsetTask=new ArrayList<>();
+		//this.ReqDataList=
+
 	}
 	public Task() {
 	}
 	public Task(int index){
 		this();
 		this.index=index;
+		this.assignedServer=(-1);
+		this.subsetTask=new ArrayList<>();
+		this.reqDataList= new HashSet<>();
 	}
 
 	public int getIndex() {
@@ -42,6 +46,15 @@ public class Task implements Comparable<Task>{
 
 	public void setIndex(int index) {
 		this.index = index;
+	}
+
+
+	public void setReqDataList(Set<Integer> dataList) {
+		this.reqDataList = dataList;
+	}
+
+	public  Set<Integer> getReqDataList() {
+		return reqDataList;
 	}
 
 	/**
@@ -74,7 +87,8 @@ public class Task implements Comparable<Task>{
 	public void setEfficiency(double efficiency){
 		this.efficiency=efficiency;
 	}
-	public void setEfficiency(Knapsack[] knapsackItems) {// gets all the servers to calculate the
+
+	public void setEfficiency(Knapsack[] knapsackItems) {// gets all the servers to calculate the efficiency of a single task
 		if (knapsackItems==null)
 			throw new NullPointerException("Knapsack Items has not been sent to input");
 		Double efficiencyDbl=0.0;

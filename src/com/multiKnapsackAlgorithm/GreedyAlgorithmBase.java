@@ -8,6 +8,7 @@ import java.util.*;
 
 public abstract class GreedyAlgorithmBase {
     private ArrayList<Task> taskItems;
+    private ArrayList<Task> setItems;//nil
     private Double[] requestItems;
     private Double[] profitItems;
     private Integer taskCount;
@@ -15,14 +16,17 @@ public abstract class GreedyAlgorithmBase {
     private Integer knapsackCount;
     private Knapsack[] knapsackItems;
     private DataType[] dataTypeItems;
+    private int[] dataSize;
     private int dataTypeItemsCount;
     private Integer[] sum;
     private Byte[] sumPrime;
     private ArrayList<Task> candidTaskItems;
     private ArrayList<DataType> candidDataTypeItems;
     private Double totalProfit;
+    private Double settotalProfit;
     private Integer totalDataSize;
-
+    private Integer totalDataSizeSet;
+    public String serverInf;
 
     /**
 	 * @return the totalDataSize
@@ -37,6 +41,20 @@ public abstract class GreedyAlgorithmBase {
 	public void setTotalDataSize(Integer totalDataSize) {
 		this.totalDataSize = totalDataSize;
 	}
+
+
+    public Integer getTotalDataSizeSet() {
+        return totalDataSizeSet;
+    }
+
+    /**
+     * @param totalDataSize the totalDataSize to set
+     */
+    public void setTotalDataSizeSet(Integer totalDataSize) {
+        this.totalDataSizeSet = totalDataSize;
+    }
+
+
 	
 	public void setTotalDataSize() {
 		Integer totalDataSize = 0;
@@ -51,6 +69,7 @@ public abstract class GreedyAlgorithmBase {
 	private Double candidDataTypeItemsProportionValue;
     {
         taskItems=new ArrayList<Task>();
+        setItems=new ArrayList<Task>();
         taskCount=Integer.MIN_VALUE;
         knapsackCount=Integer.MIN_VALUE;
         candidDataTypeItems=new ArrayList<DataType>();
@@ -114,6 +133,15 @@ public abstract class GreedyAlgorithmBase {
         this.totalProfit = totalProfit;
     }
 
+
+    public void setTotalProfitset(Double totalProfit) {
+        this.settotalProfit = totalProfit;
+    }
+
+    public Double getTotalProfitset() {
+        return settotalProfit;
+    }
+
     public Integer[] getSum() {
         return sum;
     }
@@ -136,9 +164,21 @@ public abstract class GreedyAlgorithmBase {
         return taskItems;
     }
 
+
+    public ArrayList<Task> getSetItems() {
+        return setItems;
+    }
+
+
+    public int[] getDataSize(){ return dataSize;}
+
     public void setTaskItems(ArrayList<Task> taskItems) {
         this.taskItems = taskItems;
     }
+
+
+
+
 
     public DataType[] getDataTypeItems() {
         return dataTypeItems;
@@ -147,6 +187,8 @@ public abstract class GreedyAlgorithmBase {
     public void setDataTypeItems(DataType[] dataTypeItems) {
         this.dataTypeItems = dataTypeItems;
     }
+
+
     public GreedyAlgorithmBase(String inputFilePath){
         try{
             int currentLine=0;
@@ -169,7 +211,8 @@ public abstract class GreedyAlgorithmBase {
 
             this.initialize();
             // stores server's capacity information
-            this.setKnapsackItems(lines.get(currentLine),",");
+            serverInf=lines.get(currentLine);
+            this.setKnapsackItems(serverInf,",");
             Logger.message(Arrays.deepToString( knapsackItems));
 
         }catch (IOException ioException){
@@ -181,14 +224,31 @@ public abstract class GreedyAlgorithmBase {
 
 
     public void initialize(){
+
+        //nil fixes this-> it is wrong, just gets first row of data as dataTypeItems, we need an arrray of all data typr with their corr size
         this.dataTypeItems=extractDataTypeItemsFromMatrixRow(taskDataTypeMatrix[0]);
         this.dataTypeItemsCount=this.dataTypeItems.length;
         this.sum=new Integer[this.dataTypeItemsCount];
 
+        int [] dataSize = new int[dataTypeItemsCount];
+
+
         for (int row=0;row<taskDataTypeMatrix.length;row++) {
             Task oTask=new Task(row);
 
-            Integer[] taskRow= taskDataTypeMatrix[row];
+            Integer[] taskRow= taskDataTypeMatrix[row];// each row is an array of task required data
+            Set<Integer> requiredDataList= new HashSet<>();
+            for (int i=0; i< taskRow.length;i++)
+            {
+                if(taskRow[i]!=0) {
+                    requiredDataList.add(i); // adds all the data indexes that is needed by each task
+                    if( dataSize[i]==0)
+                      dataSize[i]=taskRow[i];
+                }
+            }
+
+            oTask.setReqDataList(requiredDataList);
+
             DataType[] dataTypeItems= extractDataTypeItemsFromMatrixRow(taskRow);
             oTask.setDataTypeItems(dataTypeItems);
 
@@ -198,9 +258,58 @@ public abstract class GreedyAlgorithmBase {
             Double request=requestItems[row];
             oTask.setRequest(request);
 
+
+
             addTaskItem(oTask);
         }
+        this.dataSize=dataSize;
     }
+
+
+    public void initializeSetItems(HashMap<Integer, List<Integer>> taskSet) {//nil
+
+        int size= taskSet.size();
+        for (int i=0; i<size; i++){ // runs per set that might have one or more tasks
+
+
+            Task oTask=new Task(i); // to the number of set we have tasks
+
+            double totProfit=0;
+            double totRcr= 0;
+            List<Integer> tempTasks= taskSet.get(i);
+            Set<Integer> setDataIndex= new HashSet<>();// for each set we have dataIndex set-> stores all the data within each set of tasks
+            for (Integer t : tempTasks){// all the task index within a set
+                oTask.subsetTask.add(t);
+                totProfit+= taskItems.get(t).getProfit();// calculate overall profit and req per set
+                totRcr+=taskItems.get(t).getRequest();
+
+
+               for(Integer requiredDataIndex: getTaskItems().get(t).getReqDataList())
+                   setDataIndex.add(requiredDataIndex);
+
+
+            }
+            oTask.setReqDataList(setDataIndex);
+
+            Double profit=totProfit;
+            oTask.setProfit(profit);
+
+            Double request=totRcr;
+            oTask.setRequest(request);
+
+            double efficiency= getEfficiency(totProfit,totRcr );
+
+            oTask.setEfficiency(efficiency);
+
+            addSetItem(oTask);
+
+
+        }
+
+
+    }
+
+
     public GreedyAlgorithmBase(Integer[][] taskDataTypeMatrix, Double[] requestItems, Double[] profitItems) {
 
         this.taskDataTypeMatrix = taskDataTypeMatrix;
@@ -231,6 +340,12 @@ public abstract class GreedyAlgorithmBase {
         taskItems.add(oTask);
     }
 
+
+    private void addSetItem(Task oTask) {
+        setItems.add(oTask);
+    }
+
+
     public void setCandidTaskItems(ArrayList<Task> candidTaskItems) {
         this.candidTaskItems = candidTaskItems;
     }
@@ -243,6 +358,81 @@ public abstract class GreedyAlgorithmBase {
         }
         return taskItems;
     }
+//nil
+    public HashMap<Integer, List<Integer>> TaskSetMap(){// calculates the efficiency of set after one round of DSTA ALG
+
+        HashMap<Integer, List<Integer>> serverTask= new HashMap<>();
+        for (int k=0;k<knapsackItems.length; k++)
+            serverTask.put(k, new ArrayList<>());
+
+        Integer[] servers= getTaskserversAssignment(taskItems);
+
+        for(int i=0; i<servers.length;i++){
+            if(servers[i]!= -1) // task belongs to a set of assigned tasks from DSTA
+                serverTask.get(servers[i]).add(i); //
+            else
+            {
+                int lastIndex= serverTask.size();
+                serverTask.put(lastIndex, new ArrayList<>());
+                serverTask.get(lastIndex).add(i);
+            }
+        }
+        HashMap<Integer, List<Integer>> fserverTask= new HashMap<>();
+        int j=0;
+        for(int i=0; i<serverTask.size();i++) {
+        if(serverTask.get(i).size()!=0)
+        {
+            fserverTask.put(j, new ArrayList<>(serverTask.get(i)));
+            j++;
+        }
+        }
+
+        return fserverTask;
+    }
+
+/*
+    public double[] calEfficiencySet(HashMap<Integer, List<Integer>> taskSet){ // calculates efficiency of set of assigned and un assigned tasks
+
+        int size= taskSet.size();
+        double [] efficiency = new double[size];
+        for(int i=0; i<size;i++) {
+
+            float totProfit=0;
+            float totRcr= 0;
+            List<Integer> tempTasks= taskSet.get(i);
+            for (Integer t : tempTasks){
+
+                totProfit+= taskItems.get(t).getProfit();
+                totRcr+=taskItems.get(t).getRequest();
+            }
+
+            efficiency[i]=getEfficiency(totProfit,totRcr );
+
+        }
+        return efficiency;
+
+    }*/
+
+
+    public double getEfficiency( double profit, double request ) {// gets overal profit and required resource of the taskSet and returns Efficiency
+
+
+        if (knapsackItems==null)
+            throw new NullPointerException("Knapsack Items has not been sent to input");
+        Double efficiencyDbl=0.0;
+        Double knapsackItemsCapacitySum=0.0;
+
+        for (Knapsack knapsack:knapsackItems) {
+            knapsackItemsCapacitySum+=knapsack.getCapacity();// all the available capacity
+        }
+        efficiencyDbl= profit/ Math.sqrt(request/knapsackItemsCapacitySum);
+
+        return efficiencyDbl;
+    }
+
+
+    //nil
+
     boolean isTaskFeasibleForEfficiencyUpdate(Task taskItem,int jTilda){
         boolean isFeasible= taskItem.getDataTypeItems()[jTilda].getSize()!=0;
         return isFeasible;
@@ -326,15 +516,15 @@ public  ArrayList<Integer> getArgsMax(Integer[] product){
         return sum;
     }
     /// Greedy Algorithm: Version 2: line 22
-    public int getSelectedDataTypeItemsSupport(ArrayList<Integer> jTildaArray){
+    public int getSelectedDataTypeItemsSupport(ArrayList<Integer> jTildaArray){// gets an array of all the high-priority tasks
             Map<Integer,Integer> supports=new TreeMap<Integer,Integer>();
 
             for (Integer jTildaArrayItem:jTildaArray) {
-                supports.put(jTildaArrayItem, getSelectedDataTypeItemSupport(jTildaArrayItem));
+                supports.put(jTildaArrayItem, getSelectedDataTypeItemSupport(jTildaArrayItem));// creates map of data index and data frequency for this data among all the tasks
             }
-            int max= supports.values().stream().max(Integer::compareTo).get();
+            int max= supports.values().stream().max(Integer::compareTo).get();// gets the index of data with maximum frequency
 
-            for(Integer item:supports.keySet()){
+            for(Integer item:supports.keySet()){ // search among the data-freq map tp find data with highest freq
                 if(supports.get(item)==max)
                     return item;
             }
@@ -538,8 +728,8 @@ public  ArrayList<Integer> getArgsMax(Integer[] product){
         oStringBuilder.append("],\n");
         return oStringBuilder.toString();
     }
-
-    Integer[] getserversAssignment(){// returns an array of assigned server indexes for each task
+//nil
+    Integer[] getTaskserversAssignment( ArrayList<Task> taskItems ){// returns an array of assigned server indexes for each task -> up to the num of tasks
 
         Integer [] servers= new Integer[taskItems.size()];
         for (int i=0; i<taskItems.size(); i++ )
@@ -549,7 +739,74 @@ public  ArrayList<Integer> getArgsMax(Integer[] product){
 
     }
 
-    Float getThroughput(){
+
+    String[] getserversSetAssignment( ArrayList<Task> taskSet ){// for phase 2, after local search returns an array of assigned task indexes for each server-> up to the num of servers
+
+        String [] servers= new String[knapsackItems.length];
+        Arrays.fill(servers, "");
+
+        for (int i=0; i< taskSet.size();i++ )
+            if(taskSet.get(i).assignedServer!=-1){ // gets the set
+
+                List<Integer> tempTasks= taskSet.get(i).subsetTask;// gets tasks of each set
+
+               String tasksInsideSet = tempTasks.toString(); // convert it to string
+
+                int index =taskSet.get(i).assignedServer;// gets assigned server for whole set
+
+                    servers[index] = tasksInsideSet;
+
+            }
+
+        int k=0;
+        while(k<knapsackItems.length) {
+            if (servers[k] == "")
+                servers[k] = "null";
+            k++;
+        }
+        return servers;
+
+    }
+
+
+
+    String[] getserversAssignment( ArrayList<Task> taskItems ){// for phase 1 returns an array of assigned task indexes for each server-> up to the num of servers
+
+        String [] servers= new String[knapsackItems.length];
+        Arrays.fill(servers, "");
+
+       // List<String> t = new ArrayList<>();
+
+        HashMap<Integer, List<Integer>> taskMap= TaskSetMap();
+
+
+        for (int i=0; i< taskMap.size();i++ )
+          //
+            {
+                List<Integer> tmp= taskMap.get(i);// gets task list of each set
+                int firstTaskIndx=tmp.get(0); // we know that server assigned to all tasks of this set are equal
+                int assignedServer= taskItems.get(firstTaskIndx).assignedServer;
+                if(assignedServer!=-1)
+                {
+                    String taksList= tmp.toString();
+                    servers[assignedServer]+= taksList;
+                }
+
+
+            }
+
+        int k=0;
+        while(k<servers.length) {
+            if (servers[k] == "")
+                servers[k] = "null";
+            k++;
+        }
+        return servers;
+
+    }
+
+
+    Float getThroughput( ArrayList<Task> taskItems){
         float thr=0;
         for(Task task : taskItems)
         {
@@ -560,6 +817,19 @@ public  ArrayList<Integer> getArgsMax(Integer[] product){
 
     }
 
+
+    Float getSetThroughput( ArrayList<Task> taskSet){ // for set - phase2
+        float thr=0;
+
+        for(Task set : taskSet) // for set
+        {
+            if(set.assignedServer!=-1)
+                thr+= set.subsetTask.size();//  means that all the tasks in each set are also assigned
+
+        }
+        return ((float)Math.round((thr/taskItems.size())*100)/100)*100;
+
+    }
 
 
 }

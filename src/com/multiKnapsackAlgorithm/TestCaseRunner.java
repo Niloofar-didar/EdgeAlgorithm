@@ -19,12 +19,17 @@ public class TestCaseRunner {
     {
         instanceDirectoryName="instance";
         numberOfInstances=10;
-        inputFilePaths=new String[]{"testCase01.txt"
-                /* nil
-                "1.LowDemand-LowSharing.txt","2.LowDemand-AverageSharing.txt","3.LowDemand-HighSharing.txt",
+        inputFilePaths=new String[]{
+               // "testCase00.txt"
+                ///* nil
+
+                "1.LowDemand-LowSharing.txt"
+     //   };
+        ,"2.LowDemand-AverageSharing.txt","3.LowDemand-HighSharing.txt",
                 "4.AverageDemand-LowSharing.txt","5.AverageDemand-AverageSharing.txt","6.AverageDemand-HighSharing.txt",
-                "7.HighDemand-LowSharing.txt", "8.HighDemand-AverageSharing.txt","9.HighDemand-HighSharing.txt"*/
-        };
+                "7.HighDemand-LowSharing.txt", "8.HighDemand-AverageSharing.txt","9.HighDemand-HighSharing.txt"
+               }; //
+
         currentInputFilePath=inputFilePaths[0];
         resultWriter=ResultWriter.getInstance();
     }
@@ -74,8 +79,17 @@ public class TestCaseRunner {
 
             //System.out.println("ServerAssignment: "+oGreedyAlgorithmItem.getserversAssignment());
             //nil
-            algorithmRunResult.setServerAssignment(oGreedyAlgorithmItem.getserversAssignment());
-            algorithmRunResult.setThroughput(oGreedyAlgorithmItem.getThroughput());
+            algorithmRunResult.setServerAssignment(oGreedyAlgorithmItem.getserversAssignment( oGreedyAlgorithmItem.getTaskItems()));
+            algorithmRunResult.setThroughput(oGreedyAlgorithmItem.getThroughput(oGreedyAlgorithmItem.getTaskItems())); // gets tasks
+
+
+            /// for phase 2 results:
+            algorithmRunResult.setTotalProfitphase2(oGreedyAlgorithmItem.getTotalProfitset());
+            algorithmRunResult.setTotalDataSizephase2(oGreedyAlgorithmItem.getTotalDataSizeSet());
+            algorithmRunResult.setServerAssignmentphase2(oGreedyAlgorithmItem.getserversSetAssignment( oGreedyAlgorithmItem.getSetItems()));
+            algorithmRunResult.setThroughputphase2(oGreedyAlgorithmItem.getSetThroughput(oGreedyAlgorithmItem.getSetItems())); // gets set
+
+
 
             algorithmsRunResults.add(algorithmRunResult);
 
@@ -137,6 +151,13 @@ public class TestCaseRunner {
             add("TotalDataSize");
             add("ServerAssignment");
             add("Throughput");
+
+            add("Phase2TotalProfit");
+            add("Phase2TotalDataSize");
+            add("Phase2ServerAssignment");
+            add("Phase2Throughput");
+
+
         }};
         resultWriter.write();
         ArrayList<AlgorithmRunResult> runResults= executeForAllInstances(instanceDirectoryName,numberOfInstances, inputFilePaths);
@@ -151,6 +172,12 @@ public class TestCaseRunner {
                 add(String.valueOf(runResult.getTotalDataSize()));
                 add(Arrays.toString(runResult.getServerAssignment()));
                 add(String.valueOf(runResult.getThroughput()));
+                add(String.valueOf( runResult.getTotalProfitphase2()));// phase 2 profit
+                add(String.valueOf(runResult.getTotalDataSizephase2()));// phase2 datasharing
+                add(Arrays.toString(runResult.getServerAssignmentphase2())); // phase 2  server ass
+                add(String.valueOf(runResult.getThroughputphase2())); //phase 2  thr
+
+
             }};
             resultWriter.data=result;
             resultWriter.write();
