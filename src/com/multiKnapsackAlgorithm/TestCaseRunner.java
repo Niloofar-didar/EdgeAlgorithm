@@ -8,6 +8,7 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class TestCaseRunner {
     private String instanceDirectoryName;
@@ -17,19 +18,22 @@ public class TestCaseRunner {
     private GreedyAlgorithmBase[] greedyAlgorithmInstances;
     private ResultWriter resultWriter;
     {
-        instanceDirectoryName="instance";
-        numberOfInstances=10;
+        // running on multiple files
+         instanceDirectoryName="instance";
+        // numberOfInstances=10;
+
+        //instanceDirectoryName="init";
+        numberOfInstances=3;
         inputFilePaths=new String[]{
                // "testCase00.txt"
-                ///* nil
-
-                "1.LowDemand-LowSharing.txt"
-     //   };
+       // };
+      //  /*nill -> running on multiple files
+        "1.LowDemand-LowSharing.txt"
         ,"2.LowDemand-AverageSharing.txt","3.LowDemand-HighSharing.txt",
                 "4.AverageDemand-LowSharing.txt","5.AverageDemand-AverageSharing.txt","6.AverageDemand-HighSharing.txt",
                 "7.HighDemand-LowSharing.txt", "8.HighDemand-AverageSharing.txt","9.HighDemand-HighSharing.txt"
                }; //
-
+//*/
         currentInputFilePath=inputFilePaths[0];
         resultWriter=ResultWriter.getInstance();
     }
@@ -79,14 +83,22 @@ public class TestCaseRunner {
 
             //System.out.println("ServerAssignment: "+oGreedyAlgorithmItem.getserversAssignment());
             //nil
-            algorithmRunResult.setServerAssignment(oGreedyAlgorithmItem.getserversAssignment( oGreedyAlgorithmItem.getTaskItems()));
+            String []serverDSTA= oGreedyAlgorithmItem.getserversAssignment( oGreedyAlgorithmItem.getTaskItems());
+           List<String> sDSTA= Arrays.asList(serverDSTA);
+            algorithmRunResult.setServerAssignment(serverDSTA);
             algorithmRunResult.setThroughput(oGreedyAlgorithmItem.getThroughput(oGreedyAlgorithmItem.getTaskItems())); // gets tasks
 
 
             /// for phase 2 results:
             algorithmRunResult.setTotalProfitphase2(oGreedyAlgorithmItem.getTotalProfitset());
             algorithmRunResult.setTotalDataSizephase2(oGreedyAlgorithmItem.getTotalDataSizeSet());
-            algorithmRunResult.setServerAssignmentphase2(oGreedyAlgorithmItem.getserversSetAssignment( oGreedyAlgorithmItem.getSetItems()));
+            String []serverLocalS= oGreedyAlgorithmItem.getserversSetAssignment( oGreedyAlgorithmItem.getSetItems());
+            List<String> sLocal= Arrays.asList(serverLocalS);
+            int count= checkDataSharing(sDSTA,sLocal);
+            algorithmRunResult.setServerAssignmentphase2(serverLocalS);
+            algorithmRunResult.setDeletedTasks(count);
+
+
             algorithmRunResult.setThroughputphase2(oGreedyAlgorithmItem.getSetThroughput(oGreedyAlgorithmItem.getSetItems())); // gets set
 
 
@@ -99,6 +111,22 @@ public class TestCaseRunner {
         System.out.println("----------------------------------------------------------");
         return algorithmsRunResults;
     }
+
+
+    public int checkDataSharing(List<String> sDSTA, List<String> sLocal){// returns count of tasks that are not preserved from DSTA
+        // we use this function to see if all data from DSTA is preserved, we are sure that the increase in datasize is for increase in overall throughput
+
+        int count=0;
+        for(int i=0;i< sDSTA.size();i++)
+        {
+            String val=sDSTA.get(i);
+            if(val!="null" && !sLocal.contains(val))
+                count++;
+
+        }
+        return count;
+    }
+
     public ArrayList<AlgorithmRunResult> runTestCases(String  instanceDirectoryName,int currentInstanceNumber,String[] inputFilePaths){
         ArrayList<AlgorithmRunResult> algorithmsRunResults=new ArrayList<>();
         instanceDirectoryName="data\\"+instanceDirectoryName+currentInstanceNumber+"\\";
@@ -155,7 +183,7 @@ public class TestCaseRunner {
             add("Phase2TotalProfit");
             add("Phase2TotalDataSize");
             add("Phase2ServerAssignment");
-            add("Phase2Throughput");
+            add("DeletedTasksFromDSTA");
 
 
         }};
@@ -176,7 +204,7 @@ public class TestCaseRunner {
                 add(String.valueOf(runResult.getTotalDataSizephase2()));// phase2 datasharing
                 add(Arrays.toString(runResult.getServerAssignmentphase2())); // phase 2  server ass
                 add(String.valueOf(runResult.getThroughputphase2())); //phase 2  thr
-
+                add(String.valueOf(runResult.getDeletedTasks()));
 
             }};
             resultWriter.data=result;

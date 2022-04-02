@@ -8,6 +8,7 @@ public class AlgorithmRunResult {
     private Double totalProfit;
     private Integer totalDataSize;
     private Integer totalDataSizeSet;
+    private Integer deletedTasks;// deleted tasks after local search from DSTA
     private String[] serverAssignment;
     private float throughput;
     private Double phase2totalProfit;
@@ -79,6 +80,14 @@ public class AlgorithmRunResult {
     public void setTotalDataSize(Integer totalDataSize) {
         this.totalDataSize = totalDataSize;
     }
+
+    public void setDeletedTasks(Integer taskCount) {
+        this.deletedTasks = taskCount;
+    }
+    public Integer getDeletedTasks() {
+       return deletedTasks;
+    }
+
 
     public void setServerAssignment(String [] servers) {
         this.serverAssignment = servers;

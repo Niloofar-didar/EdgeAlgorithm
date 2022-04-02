@@ -188,7 +188,7 @@ public abstract class GreedyAlgorithmBase {
         this.dataTypeItems = dataTypeItems;
     }
 
-
+// Nill hint : in this lines, we get information of 10 files within each instances, eg, `-lowdemandLowsharing, 2- lowD-highSharing,....
     public GreedyAlgorithmBase(String inputFilePath){
         try{
             int currentLine=0;

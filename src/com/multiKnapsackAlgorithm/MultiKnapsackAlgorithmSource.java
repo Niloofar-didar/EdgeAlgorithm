@@ -15,10 +15,15 @@ public class MultiKnapsackAlgorithmSource {
 
 		String instanceDirectoryName="instance";
 
-		//String[] inputFilePaths=new String[]{"testCase00.txt"};
+	//	String[] inputFilePaths=new String[]{"testCase00.txt"};
+		//nil cmn
+		//TestCaseRunner oTestCaseRunner=new TestCaseRunner("init",1,inputFilePaths);
+
+
 		// nil
-		int numberOfInstances=10;
-		//int numberOfInstances=10; // folders # to execute
+		//int numberOfInstances=10;
+		int numberOfInstances=3;
+		// folders # to execute
 			//	/* nil
 		String[] inputFilePaths=new String[]{	"1.LowDemand-LowSharing.txt"
 
@@ -28,16 +33,11 @@ public class MultiKnapsackAlgorithmSource {
 
 
 			String inputFilePath="2.LowDemand-AverageSharing.txt";
+      TestCaseRunner oTestCaseRunner=new TestCaseRunner(instanceDirectoryName,numberOfInstances,inputFilePaths);
 
-			//	 */
-
-
-			// nil commented Using Automated Runner
-			TestCaseRunner oTestCaseRunner=new TestCaseRunner(instanceDirectoryName,numberOfInstances,inputFilePaths);
+			 //*/
 
 
-		//nil cmn
-		  // TestCaseRunner oTestCaseRunner=new TestCaseRunner("init",numberOfInstances,inputFilePaths);
 
 		oTestCaseRunner.executeAutomation();
 
