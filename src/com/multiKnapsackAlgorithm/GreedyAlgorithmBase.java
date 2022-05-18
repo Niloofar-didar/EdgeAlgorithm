@@ -27,6 +27,49 @@ public abstract class GreedyAlgorithmBase {
     private Integer totalDataSize;
     private Integer totalDataSizeSet;
     public String serverInf;
+    private Integer mintotDataLocalS;
+    private Integer mintotDataDSTA;
+    long DSTAeTime;
+    long DSTAReTime;
+    long PGeTime;
+
+
+
+
+    /**
+     * @return the execution time for DSTA
+     */
+    public long getETimeDSTA() {
+        return DSTAeTime;
+    }
+
+    /**
+     * @param set the execution time DSTA
+     */
+    public void setETimeDSTA(long time) {
+        this.DSTAeTime = time;
+    }
+
+
+    public long getETimeDSTAR() {
+        return DSTAReTime;
+    }
+    /**
+     * @param set the execution time DSTAR
+     */
+    public void setETimeDSTAR(long time) {
+        this.DSTAReTime = time;
+    }
+
+    public long getETimePG() {
+        return PGeTime;
+    }
+    /**
+     * @param set the execution time DSTAR
+     */
+    public void setETimePG(long time) {
+        this.PGeTime = time;
+    }
 
     /**
 	 * @return the totalDataSize
@@ -47,6 +90,7 @@ public abstract class GreedyAlgorithmBase {
         return totalDataSizeSet;
     }
 
+
     /**
      * @param totalDataSize the totalDataSize to set
      */
@@ -55,16 +99,27 @@ public abstract class GreedyAlgorithmBase {
     }
 
 
-	
-	public void setTotalDataSize() {
-		Integer totalDataSize = 0;
-		for (int i=0; i<candidDataTypeItems.size(); i++) {
-			//if (dataTypeItems.)
-			totalDataSize+= candidDataTypeItems.get(i).getSize();
-			
-		}
-		this.totalDataSize = totalDataSize;
-	}
+
+    /**
+     * @return the MintotalDataSize : for DSTA and LocalSerarch
+     */
+    public Integer getMinTotDatDSTA() {// min data size for DSTA if we assign the tasks to one server
+        return mintotDataDSTA;
+    }
+
+    public void setMinTotDatDSTA(Integer minDSTA) {
+        this.mintotDataDSTA = minDSTA;
+    }
+
+    public Integer getMinTotDatLS() {// min data size for Local search if we assign the tasks to one server
+        return mintotDataLocalS;
+    }
+
+    public void setMinTotDatLS(Integer minLS) {
+        this.mintotDataLocalS = minLS;
+    }
+
+
 	
 	private Double candidDataTypeItemsProportionValue;
     {
@@ -806,20 +861,20 @@ public  ArrayList<Integer> getArgsMax(Integer[] product){
     }
 
 
-    Float getThroughput( ArrayList<Task> taskItems){
-        float thr=0;
+    Integer getThroughput( ArrayList<Task> taskItems){ // for DSTA
+        int thr=0;
         for(Task task : taskItems)
         {
            if(task.assignedServer!=-1)
               thr++;
         }
-        return ((float)Math.round((thr/taskItems.size())*100)/100)*100;
+        return thr;
 
     }
 
 
-    Float getSetThroughput( ArrayList<Task> taskSet){ // for set - phase2
-        float thr=0;
+    Integer getSetThroughput( ArrayList<Task> taskSet){ // for set - local Search count of tasks
+        int thr=0;
 
         for(Task set : taskSet) // for set
         {
@@ -827,9 +882,22 @@ public  ArrayList<Integer> getArgsMax(Integer[] product){
                 thr+= set.subsetTask.size();//  means that all the tasks in each set are also assigned
 
         }
-        return ((float)Math.round((thr/taskItems.size())*100)/100)*100;
+        return thr;
 
     }
+
+
+    double getMaxProfit(){// max profit totally if we assign all the tasks
+
+        double maxProf=0;
+        for (double prof: profitItems)
+            maxProf+=prof;
+
+        maxProf=Math.round(maxProf*1000);
+        double res= (double)maxProf/1000;
+        return res;
+    }
+
 
 
 }

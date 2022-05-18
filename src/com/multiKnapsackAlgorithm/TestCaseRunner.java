@@ -23,7 +23,7 @@ public class TestCaseRunner {
         // numberOfInstances=10;
 
         //instanceDirectoryName="init";
-        numberOfInstances=3;
+        numberOfInstances=5;
         inputFilePaths=new String[]{
                // "testCase00.txt"
        // };
@@ -49,26 +49,41 @@ public class TestCaseRunner {
         System.out.println("----------------------------------------------------------");
         System.out.println("TestCaseFilePath: "+testCaseFilePath +"\t-> Begin");
         System.out.println("----------------------------------------------------------");
+
+
         greedyAlgorithmInstances= new GreedyAlgorithmBase[]{
-                new GreedyAlgorithmPhase1(testCaseFilePath),
-                //new DGreedyAlgorithm(testCaseFilePath),
-                //new PGreedyAlgorithm(testCaseFilePath),
-
-
-
+                  new GreedyAlgorithmPhase1(testCaseFilePath),new PGreedyAlgorithm(testCaseFilePath),
         };
+
+
+
+
         for (GreedyAlgorithmBase oGreedyAlgorithmItem:greedyAlgorithmInstances) {
             AlgorithmRunResult algorithmRunResult=new AlgorithmRunResult();
             System.out.println("----------------------------------------------------------");
             String algorithmName=oGreedyAlgorithmItem.getClass().getSimpleName();
             System.out.println("Algorithm: "+algorithmName);
             algorithmRunResult.setAlgorithmName(algorithmName);
-            Instant runStart=Instant.now();
-            oGreedyAlgorithmItem.run();
-            Instant runEnd=Instant.now();
-            long runTimeElapsedMillis=Duration.between(runStart,runEnd).toMillis() ;
-            System.out.println("Run: TimeElapsed: "+runTimeElapsedMillis);
-            algorithmRunResult.setElapsedTime(runTimeElapsedMillis);
+
+            if(!algorithmName.equals("GreedyAlgorithmPhase1")) { // for DSTA and DSTAR is diff
+                //Instant runStart = Instant.now();
+                oGreedyAlgorithmItem.run();
+               // Instant runEnd = Instant.now();
+               // long runTimeElapsedMillis = Duration.between(runStart, runEnd).toMillis();
+                algorithmRunResult.setElapsedTime(oGreedyAlgorithmItem.getETimePG());
+
+             //   System.out.println("Run: TimeElapsed: " + runTimeElapsedMillis);
+               // algorithmRunResult.setElapsedTime(runTimeElapsedMillis);
+            }
+            else{// for DSTA & DSTAR
+                oGreedyAlgorithmItem.run();
+                System.out.println("Run: TimeElapsed DSTA: " + oGreedyAlgorithmItem.getETimeDSTA());
+                algorithmRunResult.setElapsedTime(oGreedyAlgorithmItem.getETimeDSTA());
+                System.out.println("Run: TimeElapsed DSTAR portion: " + oGreedyAlgorithmItem.getETimeDSTAR());
+                algorithmRunResult.setElapsedTimeR(oGreedyAlgorithmItem.getETimeDSTAR());
+
+            }
+
 
             System.out.println("TotalProfit: "+oGreedyAlgorithmItem.getTotalProfit());
             algorithmRunResult.setTotalProfit(oGreedyAlgorithmItem.getTotalProfit());
@@ -89,19 +104,20 @@ public class TestCaseRunner {
             algorithmRunResult.setThroughput(oGreedyAlgorithmItem.getThroughput(oGreedyAlgorithmItem.getTaskItems())); // gets tasks
 
 
-            /// for phase 2 results:
-            algorithmRunResult.setTotalProfitphase2(oGreedyAlgorithmItem.getTotalProfitset());
-            algorithmRunResult.setTotalDataSizephase2(oGreedyAlgorithmItem.getTotalDataSizeSet());
-            String []serverLocalS= oGreedyAlgorithmItem.getserversSetAssignment( oGreedyAlgorithmItem.getSetItems());
-            List<String> sLocal= Arrays.asList(serverLocalS);
-            int count= checkDataSharing(sDSTA,sLocal);
-            algorithmRunResult.setServerAssignmentphase2(serverLocalS);
-            algorithmRunResult.setDeletedTasks(count);
-
-
-            algorithmRunResult.setThroughputphase2(oGreedyAlgorithmItem.getSetThroughput(oGreedyAlgorithmItem.getSetItems())); // gets set
-
-
+            /// for phase 2- reallocation phase results:
+            if(algorithmName.equals("GreedyAlgorithmPhase1")) {
+                algorithmRunResult.setTotalProfitphase2(oGreedyAlgorithmItem.getTotalProfitset());
+                algorithmRunResult.setTotalDataSizephase2(oGreedyAlgorithmItem.getTotalDataSizeSet());
+                String[] serverLocalS = oGreedyAlgorithmItem.getserversSetAssignment(oGreedyAlgorithmItem.getSetItems());
+                List<String> sLocal = Arrays.asList(serverLocalS);
+                int count = checkDataSharing(sDSTA, sLocal);
+                algorithmRunResult.setServerAssignmentphase2(serverLocalS);
+                algorithmRunResult.setDeletedTasks(count);
+                algorithmRunResult.setThroughputphase2(oGreedyAlgorithmItem.getSetThroughput(oGreedyAlgorithmItem.getSetItems())); // gets set
+                algorithmRunResult.setMaxProfit(oGreedyAlgorithmItem.getMaxProfit());
+                //algorithmRunResult.setminDataSize_DSTA(oGreedyAlgorithmItem.getMinTotDatDSTA());
+               // algorithmRunResult.setminDataSize_LS(oGreedyAlgorithmItem.getMinTotDatLS());
+            }
 
             algorithmsRunResults.add(algorithmRunResult);
 
@@ -127,18 +143,32 @@ public class TestCaseRunner {
         return count;
     }
 
-    public ArrayList<AlgorithmRunResult> runTestCases(String  instanceDirectoryName,int currentInstanceNumber,String[] inputFilePaths){
-        ArrayList<AlgorithmRunResult> algorithmsRunResults=new ArrayList<>();
-        instanceDirectoryName="data\\"+instanceDirectoryName+currentInstanceNumber+"\\";
-        //String[] temp_inputFilePaths=modifyInputFilePathWithCurrentDirectoryName(instanceDirectoryName,inputFilePaths);
-        for (String currentTestCaseInputFileName: inputFilePaths){
-            String currentTestCaseInputFilePath=inputFilePathBuilder( instanceDirectoryName, currentTestCaseInputFileName) ;
-            ArrayList<AlgorithmRunResult>  currentInputFileAlgorithmsRunResult= runAlgorithms(currentTestCaseInputFilePath);
-            currentInputFileAlgorithmsRunResult.forEach(current->{
+    public ArrayList<AlgorithmRunResult> runTestCases(String  instanceDirectoryName,int currentInstanceNumber,String[] inputFilePaths) {
+        ArrayList<AlgorithmRunResult> algorithmsRunResults = new ArrayList<>();
+        instanceDirectoryName = "data\\" + instanceDirectoryName + currentInstanceNumber + "\\";
+
+        // this is for DSTA and DSTAR
+       // String[] algNameAr = new String[]{"DSTA", "PGreedy"};
+       // for(String algName: algNameAr){
+        for (String currentTestCaseInputFileName : inputFilePaths) {
+            String currentTestCaseInputFilePath = inputFilePathBuilder(instanceDirectoryName, currentTestCaseInputFileName);
+            ArrayList<AlgorithmRunResult> currentInputFileAlgorithmsRunResult = runAlgorithms(currentTestCaseInputFilePath);
+            // ArrayList<AlgorithmRunResult>  currentInputFileAlgorithmsRunResult2= runAlgorithms(currentTestCaseInputFilePath,"PGreedy");
+
+            currentInputFileAlgorithmsRunResult.forEach(current -> {
                 current.setTestCaseName(currentTestCaseInputFileName);
             });
             algorithmsRunResults.addAll(currentInputFileAlgorithmsRunResult);
+
+//            currentInputFileAlgorithmsRunResult2.forEach(current->{
+//                current.setTestCaseName(currentTestCaseInputFileName);
+//            });
+//            algorithmsRunResults.addAll(currentInputFileAlgorithmsRunResult2);
         }
+    //}
+
+
+
         algorithmsRunResults.forEach(current->{
             current.setInstanceNo(currentInstanceNumber);
         });
@@ -180,17 +210,24 @@ public class TestCaseRunner {
             add("ServerAssignment");
             add("Throughput");
 
-            add("Phase2TotalProfit");
-            add("Phase2TotalDataSize");
-            add("Phase2ServerAssignment");
-            add("DeletedTasksFromDSTA");
-
+            add("LSTotalProfit");
+            add("LSTotalDataSize");
+            add("LSServerAssignment");
+            add("LSThroughput");
+           // add("DeletedTasksFromDSTA");
+            add("LSAddedTasks");
+            add("MaxProfit");
+         //   add("minDataSize_DSTA");
+        //    add("minDataSize_LS");
+            add("ExecutionTimeDSTAR");
 
         }};
         resultWriter.write();
         ArrayList<AlgorithmRunResult> runResults= executeForAllInstances(instanceDirectoryName,numberOfInstances, inputFilePaths);
         ArrayList<String> result=null;
-        for (AlgorithmRunResult runResult:runResults) {
+        for (AlgorithmRunResult runResult:runResults) {// each runResult has output for either of algorithms and Demand-sharing set in order
+
+
             result=new ArrayList<>(){{
                 add(String.valueOf(runResult.getInstanceNo()));
                 add(runResult.getTestCaseName());
@@ -200,11 +237,18 @@ public class TestCaseRunner {
                 add(String.valueOf(runResult.getTotalDataSize()));
                 add(Arrays.toString(runResult.getServerAssignment()));
                 add(String.valueOf(runResult.getThroughput()));
-                add(String.valueOf( runResult.getTotalProfitphase2()));// phase 2 profit
-                add(String.valueOf(runResult.getTotalDataSizephase2()));// phase2 datasharing
-                add(Arrays.toString(runResult.getServerAssignmentphase2())); // phase 2  server ass
-                add(String.valueOf(runResult.getThroughputphase2())); //phase 2  thr
-                add(String.valueOf(runResult.getDeletedTasks()));
+                if(runResult.getAlgorithmName().equals("GreedyAlgorithmPhase1")) {
+                    add(String.valueOf(runResult.getTotalProfitphase2()));// phase 2 profit
+                    add(String.valueOf(runResult.getTotalDataSizephase2()));// phase2 datasharing
+                    add(Arrays.toString(runResult.getServerAssignmentphase2())); // phase 2  server ass
+                    add(String.valueOf(runResult.getThroughputphase2())); //phase 2  thr
+                    //add(String.valueOf(runResult.getDeletedTasks()));
+                    add(String.valueOf(runResult.getAddedTasksphase2()));
+                    add(String.valueOf(runResult.getMaxProfit()));
+                    //add(String.valueOf(runResult.getminDataSize_DSTA()));
+                    //add(String.valueOf(runResult.getminDataSize_LS()));
+                    add(String.valueOf(runResult.getElapsedTimeR()));
+                }
 
             }};
             resultWriter.data=result;

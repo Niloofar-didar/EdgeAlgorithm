@@ -2,6 +2,8 @@ package com.multiKnapsackAlgorithm;
 
 import com.multiKnapsackAlgorithm.hm.Logger;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.*;
 import java.util.stream.IntStream;
 
@@ -19,6 +21,9 @@ public class GreedyAlgorithmPhase1 extends GreedyAlgorithmBase{
 
 	@Override
 	public void run() {
+
+		Instant runStartDSTA=Instant.now();
+		Instant runEndDSTA=runStartDSTA;
 		//initialization
 		// sort the servers based on non-increasing capacity order
 		Arrays.sort(getKnapsackItems(), Collections.reverseOrder());
@@ -149,9 +154,7 @@ jTilda, we need an array first
 							for(int index: sortedTaskItem.getReqDataList())// adds all the required data of the assigned task to the assigned server
 						     	knapsackItem.indexOfData.add(index);
 
-							knapsackItem.addTaskItem(sortedTaskItem);// we assigned the task to the server, now it's time to also add its data to the corresponding set
-
-
+							knapsackItem.addTaskItem(sortedTaskItem);// we assigned the task to the server,  it's time to also add its data to the corresponding set
 
 
 							sortedTaskItem.setEfficiency(0.0);
@@ -184,6 +187,7 @@ jTilda, we need an array first
 //			}
 
 
+
 			Logger.message("MultiKnapsack Algorithm -> Run ->\tknapsack task assignment: End");
 			// stores assigned data type information
 			setCandidDataTypeItems(DataType.union(getCandidDataTypeItems(),getDataTypeItems()[jTilda]));
@@ -195,36 +199,52 @@ jTilda, we need an array first
 			}
 		}
 
-
+		runEndDSTA = Instant.now();
 //********************************///////////
-// //This is to calculate datasharing for DSTA
+// //This is to first calculate datasharing for DSTA
 
-		Set<Integer> dataUSedSet =  new HashSet<>();;
+/// AND minDataDSTA is to calculate min Data size if we assign all the tasks of DSTA to one server
+		Set<Integer> minDataDSTA =  new HashSet<>();;
 		for( Knapsack server: getKnapsackItems()){
-			for(Integer dataIndex:server.indexOfData)
-					setTotalDataSize( getTotalDataSize() + getDataSize()[dataIndex]);
-		}
+			for(Integer dataIndex:server.indexOfData) {
+				setTotalDataSize(getTotalDataSize() + getDataSize()[dataIndex]);
+				minDataDSTA.add(dataIndex);// stores non-replicated data item size to minDataDSTA set
+			}
+			}
 
 
+		long runTimeDSTA = Duration.between(runStartDSTA, runEndDSTA).toMillis();
+		setETimeDSTA(runTimeDSTA);
+
+		/// END DSTA
+
+///  to calculate min Data size if we assign all the tasks of DSTA to one server
+		int minDataSizeDSTA=0;
+		for(Integer size: minDataDSTA)
+			minDataSizeDSTA+=size;
+
+		setMinTotDatDSTA(minDataSizeDSTA);// sets the minDataSize variable
 
 
 		// records data used after DSTA
-
 		setCandidDataTypeItemsByCheckingFinalStates();
 		ArrayList<DataType>  finalCandidDataTypeItems= getCandidDataTypeItems();
         setCandidDataTypeItemsProportionValue();
 
-		// starting local search algorithm -> best fit, second round
+
+
+
+		Instant runStartDSTAR=Instant.now();
+		/// START DSTAR
+		// starting DSTAR algorithm -> best fit, second round
 		HashMap<Integer, List<Integer>> setOfTasks= TaskSetMap();// returns a map of un assigned and assigned tasks after DSTA
 
 		// here we need to reset server's capacity for the new assignment and efficiency function calculation
 		setKnapsackItems(serverInf,",");// reset servers
-		Arrays.sort(getKnapsackItems()); //sort servers in increasing order for best fit local search
+		Arrays.sort(getKnapsackItems()); //sort servers in increasing order for best fit DSTAR
 		setTotalProfitset(0.0);// reset total profit of set
 		setTotalDataSizeSet(0);// reset datasieze of set
 		initializeSetItems(setOfTasks);//  creates a list of set , assigns the profit, request, and efficiency
-
-
 
 
 		Task[] sortedSetItems=new Task[getSetItems().size()];
@@ -263,18 +283,41 @@ jTilda, we need an array first
 			}
 		}
 
-		//********************************///////////
-// //This is to calculate datasharing for local search
 
-	//	Set<Integer> dataUSedSetlocals =  new HashSet<>();;
+		Instant runEndDSTAR = Instant.now();
+
+// //This is to calculate datasharing for DSTAR
+// AND minDataDSTA is to calculate min Data size if we assign all the tasks of DSTAR to one server
+		Set<Integer> minDataLS =  new HashSet<>();
 		for( Knapsack server: getKnapsackItems()){
-			for(Integer dataIndex:server.indexOfData)
-				setTotalDataSizeSet( getTotalDataSizeSet() + getDataSize()[dataIndex]);// totalprofit for all sets
-		}
+			for(Integer dataIndex:server.indexOfData) {
+				setTotalDataSizeSet(getTotalDataSizeSet() + getDataSize()[dataIndex]);// totalprofit for all sets of DSTAR
+				minDataLS.add(dataIndex);// stores non-replicated data item size to minDataDSTA set
+			}
+			}
 
+//********************************///////////
+
+		long runTimeDSTAR = Duration.between(runStartDSTAR, runEndDSTAR).toMillis();
+		setETimeDSTAR(runTimeDSTAR);
+		////// END OF DSTAR
+
+
+
+///  to calculate min Data size if we assign all the tasks of DSTAR to one server
+		int minDataSizeLS=0;
+		for(Integer size: minDataLS)
+			minDataSizeLS+=size;
+
+		setMinTotDatLS(minDataSizeLS);// sets the minDataSize variable
+
+		double maxProfit= getMaxProfit();
 
 		String [] servers= getserversSetAssignment(getSetItems());
-		Logger.message( "end of local search");
+		Logger.message( "end of reallocation phase");
+
+
+
 	}
 
 

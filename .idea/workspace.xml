@@ -19,7 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="31d4296a-39c4-4baf-9a8f-dbbb16758d3c" name="Default Changelist" comment="Added functions to return server assignment and throughput of the algorithm">
+    <list default="true" id="31d4296a-39c4-4baf-9a8f-dbbb16758d3c" name="Default Changelist" comment="Added functions to get the non-preserved tasks after local search">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/instance0/1.LowDemand-LowSharing.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/instance0/1.LowDemand-LowSharing.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/instance0/2.LowDemand-AverageSharing.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/instance0/2.LowDemand-AverageSharing.txt" afterDir="false" />
@@ -30,7 +30,7 @@
       <change beforePath="$PROJECT_DIR$/data/instance0/7.HighDemand-LowSharing.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/instance0/7.HighDemand-LowSharing.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/instance0/8.HighDemand-AverageSharing.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/instance0/8.HighDemand-AverageSharing.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/instance0/9.HighDemand-HighSharing.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/instance0/9.HighDemand-HighSharing.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/instance0/sharing ratio.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/instance0/sharing ratio.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/instance0/sharing ratio.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/data/instance1/1.LowDemand-LowSharing.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/instance1/1.LowDemand-LowSharing.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/instance1/2.LowDemand-AverageSharing.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/instance1/2.LowDemand-AverageSharing.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/instance1/3.LowDemand-HighSharing.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/instance1/3.LowDemand-HighSharing.txt" afterDir="false" />
@@ -40,6 +40,7 @@
       <change beforePath="$PROJECT_DIR$/data/instance1/7.HighDemand-LowSharing.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/instance1/7.HighDemand-LowSharing.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/instance1/8.HighDemand-AverageSharing.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/instance1/8.HighDemand-AverageSharing.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/instance1/9.HighDemand-HighSharing.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/instance1/9.HighDemand-HighSharing.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/instance1/sharing ratio.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/data/instance2/1.LowDemand-LowSharing.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/instance2/1.LowDemand-LowSharing.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/instance2/2.LowDemand-AverageSharing.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/instance2/2.LowDemand-AverageSharing.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/instance2/3.LowDemand-HighSharing.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/instance2/3.LowDemand-HighSharing.txt" afterDir="false" />
@@ -49,81 +50,13 @@
       <change beforePath="$PROJECT_DIR$/data/instance2/7.HighDemand-LowSharing.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/instance2/7.HighDemand-LowSharing.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/instance2/8.HighDemand-AverageSharing.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/instance2/8.HighDemand-AverageSharing.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/instance2/9.HighDemand-HighSharing.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/instance2/9.HighDemand-HighSharing.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/instance2/sharing ratio.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/instance2/sharing ratio.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/instance3/1.LowDemand-LowSharing.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/instance3/2.LowDemand-AverageSharing.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/instance3/3.LowDemand-HighSharing.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/instance3/4.AverageDemand-LowSharing.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/instance3/5.AverageDemand-AverageSharing.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/instance3/6.AverageDemand-HighSharing.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/instance3/7.HighDemand-LowSharing.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/instance3/8.HighDemand-AverageSharing.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/instance3/9.HighDemand-HighSharing.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/instance3/sharing ratio.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/instance4/1.LowDemand-LowSharing.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/instance4/2.LowDemand-AverageSharing.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/instance4/3.LowDemand-HighSharing.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/instance4/4.AverageDemand-LowSharing.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/instance4/5.AverageDemand-AverageSharing.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/instance4/6.AverageDemand-HighSharing.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/instance4/7.HighDemand-LowSharing.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/instance4/8.HighDemand-AverageSharing.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/instance4/9.HighDemand-HighSharing.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/instance4/sharing ratio.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/instance5/1.LowDemand-LowSharing.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/instance5/2.LowDemand-AverageSharing.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/instance5/3.LowDemand-HighSharing.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/instance5/4.AverageDemand-LowSharing.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/instance5/5.AverageDemand-AverageSharing.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/instance5/6.AverageDemand-HighSharing.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/instance5/7.HighDemand-LowSharing.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/instance5/8.HighDemand-AverageSharing.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/instance5/9.HighDemand-HighSharing.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/instance5/sharing ratio.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/instance6/1.LowDemand-LowSharing.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/instance6/2.LowDemand-AverageSharing.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/instance6/3.LowDemand-HighSharing.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/instance6/4.AverageDemand-LowSharing.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/instance6/5.AverageDemand-AverageSharing.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/instance6/6.AverageDemand-HighSharing.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/instance6/7.HighDemand-LowSharing.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/instance6/8.HighDemand-AverageSharing.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/instance6/9.HighDemand-HighSharing.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/instance6/sharing ratio.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/instance7/1.LowDemand-LowSharing.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/instance7/2.LowDemand-AverageSharing.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/instance7/3.LowDemand-HighSharing.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/instance7/4.AverageDemand-LowSharing.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/instance7/5.AverageDemand-AverageSharing.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/instance7/6.AverageDemand-HighSharing.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/instance7/7.HighDemand-LowSharing.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/instance7/8.HighDemand-AverageSharing.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/instance7/9.HighDemand-HighSharing.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/instance7/sharing ratio.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/instance8/1.LowDemand-LowSharing.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/instance8/2.LowDemand-AverageSharing.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/instance8/3.LowDemand-HighSharing.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/instance8/4.AverageDemand-LowSharing.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/instance8/5.AverageDemand-AverageSharing.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/instance8/6.AverageDemand-HighSharing.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/instance8/7.HighDemand-LowSharing.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/instance8/8.HighDemand-AverageSharing.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/instance8/9.HighDemand-HighSharing.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/instance8/sharing ratio.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/instance9/1.LowDemand-LowSharing.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/instance9/2.LowDemand-AverageSharing.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/instance9/3.LowDemand-HighSharing.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/instance9/4.AverageDemand-LowSharing.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/instance9/5.AverageDemand-AverageSharing.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/instance9/6.AverageDemand-HighSharing.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/instance9/7.HighDemand-LowSharing.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/instance9/8.HighDemand-AverageSharing.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/instance9/9.HighDemand-HighSharing.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/instance9/sharing ratio.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/instance2/sharing ratio.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/result.csv" beforeDir="false" afterPath="$PROJECT_DIR$/result.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/multiKnapsackAlgorithm/AlgorithmRunResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/multiKnapsackAlgorithm/AlgorithmRunResult.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/multiKnapsackAlgorithm/GreedyAlgorithmBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/multiKnapsackAlgorithm/GreedyAlgorithmBase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/multiKnapsackAlgorithm/GreedyAlgorithmPhase1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/multiKnapsackAlgorithm/GreedyAlgorithmPhase1.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/multiKnapsackAlgorithm/MultiKnapsackAlgorithmSource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/multiKnapsackAlgorithm/MultiKnapsackAlgorithmSource.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/multiKnapsackAlgorithm/PGreedy/PGreedyAlgorithm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/multiKnapsackAlgorithm/PGreedy/PGreedyAlgorithm.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/multiKnapsackAlgorithm/TestCaseRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/multiKnapsackAlgorithm/TestCaseRunner.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -136,6 +69,11 @@
       <list>
         <option value="niloofari &lt;niloofar.didar@ymail.com&gt;" />
       </list>
+    </option>
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -267,7 +205,14 @@
       <option name="project" value="LOCAL" />
       <updated>1644946318230</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Added functions to get the non-preserved tasks after local search">
+      <created>1648874265472</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1648874265472</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -292,29 +237,15 @@
     <MESSAGE value="modified D-Greedy and sorted all tasks in ascending order of request. &#10;added a break statement to resolve the issue with duplicated data assignments on servers." />
     <MESSAGE value="Added functions to return server assignment and throughput of the algortihm" />
     <MESSAGE value="Added functions to return server assignment and throughput of the algorithm" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added functions to return server assignment and throughput of the algorithm" />
+    <MESSAGE value="Added functions to get the non-preserved tasks after local search" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added functions to get the non-preserved tasks after local search" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/multiKnapsackAlgorithm/PGreedy/PGreedyAlgorithm.java</url>
-          <line>113</line>
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/multiKnapsackAlgorithm/DGreedyAlgorithm.java</url>
-          <line>108</line>
-          <option name="timeStamp" value="9" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/multiKnapsackAlgorithm/DGreedyAlgorithm.java</url>
-          <line>47</line>
-          <option name="timeStamp" value="10" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/multiKnapsackAlgorithm/GreedyAlgorithmBase.java</url>
-          <line>743</line>
+          <line>798</line>
           <option name="timeStamp" value="80" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -333,14 +264,24 @@
           <option name="timeStamp" value="123" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/multiKnapsackAlgorithm/TestCaseRunner.java</url>
-          <line>97</line>
-          <option name="timeStamp" value="130" />
+          <url>file://$PROJECT_DIR$/src/com/multiKnapsackAlgorithm/GreedyAlgorithmBase.java</url>
+          <line>137</line>
+          <option name="timeStamp" value="158" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/multiKnapsackAlgorithm/TestCaseRunner.java</url>
-          <line>126</line>
-          <option name="timeStamp" value="134" />
+          <url>file://$PROJECT_DIR$/src/com/multiKnapsackAlgorithm/PGreedy/PGreedyAlgorithm.java</url>
+          <line>131</line>
+          <option name="timeStamp" value="165" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/multiKnapsackAlgorithm/GreedyAlgorithmPhase1.java</url>
+          <line>188</line>
+          <option name="timeStamp" value="167" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/multiKnapsackAlgorithm/PGreedy/PGreedyAlgorithm.java</url>
+          <line>103</line>
+          <option name="timeStamp" value="174" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/com/multiKnapsackAlgorithm/Knapsack.java</url>
@@ -357,6 +298,7 @@
       <pinned-members>
         <PinnedItemInfo parentTag="com.multiKnapsackAlgorithm.Task" memberName="dataTypeItems" />
         <PinnedItemInfo parentTag="com.multiKnapsackAlgorithm.PGreedy.PGreedyAlgorithm" memberName="knapsackItems" />
+        <PinnedItemInfo parentTag="com.multiKnapsackAlgorithm.Task" memberName="subsetTask" />
         <PinnedItemInfo parentTag="com.multiKnapsackAlgorithm.Knapsack" memberName="taskItems" />
         <PinnedItemInfo parentTag="java.util.HashMap$Node" memberName="value" />
         <PinnedItemInfo parentTag="com.multiKnapsackAlgorithm.Knapsack" memberName="assignedDataTypeItems" />

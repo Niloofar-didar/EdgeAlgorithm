@@ -22,7 +22,7 @@ public class MultiKnapsackAlgorithmSource {
 
 		// nil
 		//int numberOfInstances=10;
-		int numberOfInstances=3;
+		int numberOfInstances=5;
 		// folders # to execute
 			//	/* nil
 		String[] inputFilePaths=new String[]{	"1.LowDemand-LowSharing.txt"

@@ -6,9 +6,10 @@ import com.multiKnapsackAlgorithm.Knapsack;
 import com.multiKnapsackAlgorithm.Task;
 import com.multiKnapsackAlgorithm.hm.Logger;
 //Generic
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
+import java.time.Duration;
+import java.time.Instant;
+import java.util.*;
+
 //PGreedy: Implementation: This algorithm is smarter than the Naive implementation. It removes duplication of data assignment from each
 // individual server
 public class PGreedyAlgorithm extends GreedyAlgorithmBase {
@@ -27,16 +28,20 @@ public class PGreedyAlgorithm extends GreedyAlgorithmBase {
 
     @Override
     public void run() {
+
+        Instant runStartPG=Instant.now();
+
         Arrays.sort(getKnapsackItems(), Collections.reverseOrder());
         setCandidTaskItems(new ArrayList<Task>());
         setCandidDataTypeItems(new ArrayList<DataType>());
         setTotalProfit(0.0);
         setTotalDataSize(0);
 
+
         Logger.message("MultiKnapsack Algorithm -> Run -> Set IsUsed Property: Begin" );
         for (Knapsack knapsackItem : getKnapsackItems()) {
             knapsackItem.setUsed(false);
-
+            knapsackItem.indexOfData.clear();
             Logger.message( knapsackItem.toString());
         }
 
@@ -73,6 +78,10 @@ public class PGreedyAlgorithm extends GreedyAlgorithmBase {
                     Logger.message("MultiKnapsack Algorithm -> Run ->\tknapsack task assignment->\t\tcandidTaskItem: Before Union");
                     Logger.message(getCandidTaskItems().size());
                     setCandidTaskItems (Task.union(getCandidTaskItems(),currentTaskItem));
+                    currentTaskItem.setServer(knapsackItem.index);
+// added
+                    for(int index: currentTaskItem.getReqDataList())// adds all the required data of the assigned task to the assigned server
+                        knapsackItem.indexOfData.add(index);
 
 
                     Logger.message("MultiKnapsack Algorithm -> Run ->\tknapsack task assignment->\t\tcandidTaskItem: After Union");
@@ -98,7 +107,7 @@ public class PGreedyAlgorithm extends GreedyAlgorithmBase {
                                 knapsackItem.setAssignedDataTypeItems(
                                     DataType.union(knapsackItem.getAssignedDataTypeItems(), currentDataType)
                                 );
-                            setTotalDataSize(getTotalDataSize() + currentDataType.getSize());
+                           // setTotalDataSize(getTotalDataSize() + currentDataType.getSize());
                         }
                     }
                     }
@@ -111,6 +120,22 @@ public class PGreedyAlgorithm extends GreedyAlgorithmBase {
             getTaskItems().get(jTilda).setCandid(true);
 
         }
+
+        Instant runEndPG=Instant.now();
+
+        long runTimePG = Duration.between(runStartPG, runEndPG).toMillis();
+        setETimePG(runTimePG);
+
+        // nill added
+        for( Knapsack server: getKnapsackItems()){
+            for(Integer dataIndex:server.indexOfData) {
+                setTotalDataSize(getTotalDataSize() + getDataSize()[dataIndex]);// totalprofit for all sets of
+            }
+        }
+
+
+
+
     }
     private int getRequestsArgMin(ArrayList<Integer> jTildaArray){
         ArrayList<Task> jTildaArrayTaskItems=new ArrayList<>();
