@@ -101,7 +101,7 @@ public class TestCaseRunner {
             algorithmRunResult.setThroughput(oGreedyAlgorithmItem.getThroughput(oGreedyAlgorithmItem.getTaskItems())); // gets tasks
 
 
-            /// for phase 2- reallocation phase results:
+            /// for DSTAR reallocation  results:
             if(algorithmName.equals("GreedyAlgorithms")) {
                 algorithmRunResult.setTotalProfitDstar(oGreedyAlgorithmItem.getTotalProfitset());
                 algorithmRunResult.setTotalDataSizeDstar(oGreedyAlgorithmItem.getTotalDataSizeSet());
@@ -235,10 +235,10 @@ public class TestCaseRunner {
                 add(Arrays.toString(runResult.getServerAssignment()));
                 add(String.valueOf(runResult.getThroughput()));
                 if(runResult.getAlgorithmName().equals("GreedyAlgorithms")) {
-                    add(String.valueOf(runResult.getTotalProfitDstar()));// phase 2 profit
-                    add(String.valueOf(runResult.getTotalDataSizeDstar()));// phase2 datasharing
-                    add(Arrays.toString(runResult.getServerAssignmentDstar())); // phase 2  server ass
-                    add(String.valueOf(runResult.getThroughputDstar())); //phase 2  thr
+                    add(String.valueOf(runResult.getTotalProfitDstar()));// DSTAR profit
+                    add(String.valueOf(runResult.getTotalDataSizeDstar()));// DSTAR datasharing
+                    add(Arrays.toString(runResult.getServerAssignmentDstar())); // DSTAR  server assignment
+                    add(String.valueOf(runResult.getThroughputDstar())); //DSTAR allocated tasks
                     //add(String.valueOf(runResult.getDeletedTasks()));
                     add(String.valueOf(runResult.getAddedTasksDstar()));
                     add(String.valueOf(runResult.getMaxProfit()));
