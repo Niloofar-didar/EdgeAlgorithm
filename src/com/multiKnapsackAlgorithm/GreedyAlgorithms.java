@@ -27,8 +27,8 @@ public class GreedyAlgorithms extends GreedyAlgorithmBase{
 		super(taskDataTypeMatrix, requestItems, profitItems, knapsackItems);
 	}
 
-	@Override
-	public void run() {
+	//@Override
+	public String[] run() { // returns the array of server assignment for the algorithm that gives the highest profit -> MAXProfit(DSTA,DSTAR)
 
 		Instant runStartDSTA=Instant.now();
 		Instant runEndDSTA=runStartDSTA;
@@ -201,6 +201,8 @@ public class GreedyAlgorithms extends GreedyAlgorithmBase{
 		long runTimeDSTA = Duration.between(runStartDSTA, runEndDSTA).toMillis();
 		setETimeDSTA(runTimeDSTA);
 
+		double dstaTotProfit=getTotalProfit();
+		String []serverDSTA= getserversAssignment( getTaskItems());
 		/// END DSTA
 
 ///  to calculate min Data size if we assign all the tasks of DSTA to one server
@@ -287,6 +289,11 @@ public class GreedyAlgorithms extends GreedyAlgorithmBase{
 		setETimeDSTAR(runTimeDSTAR);
 		////// END OF DSTAR
 
+		String[] serverDstar = getserversSetAssignment(getSetItems());
+		double dstarTotProfit=getTotalProfit();
+
+
+
 
 
 ///  to calculate min Data size if we assign all the tasks of DSTAR to one server
@@ -302,6 +309,12 @@ public class GreedyAlgorithms extends GreedyAlgorithmBase{
 		Logger.message( "end of reallocation phase");
 
 
+        // line 26 and 27 of DSTAR
+		if(dstaTotProfit <dstarTotProfit)
+			return serverDstar;
+
+
+		return serverDSTA;
 
 	}
 

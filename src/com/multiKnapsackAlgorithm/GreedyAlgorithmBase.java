@@ -3,7 +3,6 @@ package com.multiKnapsackAlgorithm;
 import com.multiKnapsackAlgorithm.hm.Logger;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.*;
 
 public abstract class GreedyAlgorithmBase {
@@ -27,7 +26,7 @@ public abstract class GreedyAlgorithmBase {
     private Integer totalDataSize;
     private Integer totalDataSizeSet;
     public String serverInf;
-    private Integer mintotDataLocalS;
+    private Integer mintotDataDstar;
     private Integer mintotDataDSTA;
     long DSTAeTime;
     long DSTAReTime;
@@ -101,7 +100,7 @@ public abstract class GreedyAlgorithmBase {
 
 
     /**
-     * @return the MintotalDataSize : for DSTA and LocalSerarch
+     * @return the MintotalDataSize : for DSTA and DSTAR
      */
     public Integer getMinTotDatDSTA() {// min data size for DSTA if we assign the tasks to one server
         return mintotDataDSTA;
@@ -111,12 +110,12 @@ public abstract class GreedyAlgorithmBase {
         this.mintotDataDSTA = minDSTA;
     }
 
-    public Integer getMinTotDatLS() {// min data size for Local search if we assign the tasks to one server
-        return mintotDataLocalS;
+    public Integer getMinTotDatLS() {// min data size for DSTAR if we assign the tasks to one server
+        return mintotDataDstar;
     }
 
     public void setMinTotDatLS(Integer minLS) {
-        this.mintotDataLocalS = minLS;
+        this.mintotDataDstar = minLS;
     }
 
 
@@ -627,7 +626,7 @@ public  ArrayList<Integer> getArgsMax(Integer[] product){
 
 
 
-    public abstract void run();
+    public abstract String[] run();
 
     public void setSumPrimeByZero() {
         this.sumPrime=new Byte[dataTypeItemsCount];
@@ -873,7 +872,7 @@ public  ArrayList<Integer> getArgsMax(Integer[] product){
     }
 
 
-    Integer getSetThroughput( ArrayList<Task> taskSet){ // for set - local Search count of tasks
+    Integer getSetThroughput( ArrayList<Task> taskSet){ // for set -DSTAR count of tasks
         int thr=0;
 
         for(Task set : taskSet) // for set

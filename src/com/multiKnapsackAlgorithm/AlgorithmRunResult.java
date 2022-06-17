@@ -10,7 +10,7 @@ public class AlgorithmRunResult {
     private Double totalProfit;
     private Integer totalDataSize;
     private Integer totalDataSizeSet;
-    private Integer deletedTasks;// deleted tasks after local search from DSTA
+    private Integer deletedTasks;// deleted tasks after DSTAR
     private String[] serverAssignment;
     private Integer throughput;
     private Double dstarTotalProfit;

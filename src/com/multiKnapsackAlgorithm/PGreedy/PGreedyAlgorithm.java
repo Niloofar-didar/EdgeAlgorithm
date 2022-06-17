@@ -27,7 +27,7 @@ public class PGreedyAlgorithm extends GreedyAlgorithmBase {
     }
 
     @Override
-    public void run() {
+    public String[] run() {
 
         Instant runStartPG=Instant.now();
 
@@ -133,7 +133,8 @@ public class PGreedyAlgorithm extends GreedyAlgorithmBase {
             }
         }
 
-
+    String[] result= new String[1];
+        return result;
 
 
     }

@@ -24,7 +24,7 @@ public class NaivePGreedyAlgorithm extends GreedyAlgorithmBase {
     }
 
     @Override
-    public void run() {
+    public String[] run() {
         Arrays.sort(getKnapsackItems(), Collections.reverseOrder());
         setCandidTaskItems(new ArrayList<Task>());
         setCandidDataTypeItems(new ArrayList<DataType>());
@@ -98,6 +98,9 @@ public class NaivePGreedyAlgorithm extends GreedyAlgorithmBase {
             getTaskItems().get(jTilda).setCandid(true);
 
         }
+        String[] result= new String[1];
+        return result;
+
     }
     private int getRequestsArgMin(ArrayList<Integer> jTildaArray){
         ArrayList<Task> jTildaArrayTaskItems=new ArrayList<>();

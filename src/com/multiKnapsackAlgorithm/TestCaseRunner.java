@@ -105,10 +105,10 @@ public class TestCaseRunner {
             if(algorithmName.equals("GreedyAlgorithms")) {
                 algorithmRunResult.setTotalProfitDstar(oGreedyAlgorithmItem.getTotalProfitset());
                 algorithmRunResult.setTotalDataSizeDstar(oGreedyAlgorithmItem.getTotalDataSizeSet());
-                String[] serverLocalS = oGreedyAlgorithmItem.getserversSetAssignment(oGreedyAlgorithmItem.getSetItems());
-                List<String> sLocal = Arrays.asList(serverLocalS);
-                int count = checkDataSharing(sDSTA, sLocal);
-                algorithmRunResult.setServerAssignmentDstar(serverLocalS);
+                String[] serverDstar = oGreedyAlgorithmItem.getserversSetAssignment(oGreedyAlgorithmItem.getSetItems());
+                List<String> sDstar = Arrays.asList(serverDstar);
+                int count = checkDataSharing(sDSTA, sDstar);
+                algorithmRunResult.setServerAssignmentDstar(serverDstar);
                 algorithmRunResult.setDeletedTasks(count);
                 algorithmRunResult.setThroughputDstar(oGreedyAlgorithmItem.getSetThroughput(oGreedyAlgorithmItem.getSetItems())); // gets set
                 algorithmRunResult.setMaxProfit(oGreedyAlgorithmItem.getMaxProfit());
@@ -126,14 +126,14 @@ public class TestCaseRunner {
     }
 
 
-    public int checkDataSharing(List<String> sDSTA, List<String> sLocal){// returns count of tasks that are not preserved from DSTA
+    public int checkDataSharing(List<String> sDSTA, List<String> sDstar){// returns count of tasks that are not preserved from DSTA
         // we use this function to see if all data from DSTA is preserved, we are sure that the increase in datasize is for increase in overall throughput
 
         int count=0;
         for(int i=0;i< sDSTA.size();i++)
         {
             String val=sDSTA.get(i);
-            if(val!="null" && !sLocal.contains(val))
+            if(val!="null" && !sDstar.contains(val))
                 count++;
 
         }
