@@ -39,7 +39,7 @@
     </option>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="DSTAR" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -203,7 +203,14 @@
       <option name="project" value="LOCAL" />
       <updated>1655426567802</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Finalized DSTAR - Clean out code">
+      <created>1655431048256</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1655431048256</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -231,6 +238,7 @@
     <MESSAGE value="Added functions to get the non-preserved tasks after local search" />
     <MESSAGE value="Finalized DSTAR - execution time added for all scenarios" />
     <MESSAGE value="Finalized DSTAR - execution time-increase in tasks added for all scenarios" />
+    <MESSAGE value=" Added line 26-27 of DSTAR psudoCode" />
     <MESSAGE value="Finalized DSTAR - Clean out code" />
     <option name="LAST_COMMIT_MESSAGE" value="Finalized DSTAR - Clean out code" />
   </component>
@@ -239,7 +247,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/multiKnapsackAlgorithm/GreedyAlgorithmBase.java</url>
-          <line>798</line>
+          <line>799</line>
           <option name="timeStamp" value="80" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -259,7 +267,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/multiKnapsackAlgorithm/GreedyAlgorithmBase.java</url>
-          <line>137</line>
+          <line>138</line>
           <option name="timeStamp" value="158" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
