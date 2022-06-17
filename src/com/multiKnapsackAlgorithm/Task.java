@@ -107,19 +107,10 @@ public class Task implements Comparable<Task>{
 	public void setDataTypeNominated(boolean dataTypeNominated) {
 		isDataTypeNominated = dataTypeNominated;
 	}
-//	@Override
-//	public String toString() {
-//		return "\nTask [index= "+index+" ,profit=" + profit + ", request=" + request + ",\n dataTypeItems=" + Arrays.toString(dataTypeItems)
-//				+", efficiency=" + efficiency
-//				+", isUsed=" + isUsed +"]";
-//	}
+
 	@Override
 	public String toString() {
 		return "Task [index= "+index+" ,profit=" + profit + ", request=" + request
-//				+ ",\n "
-//				+"dataTypeItems=" + Arrays.toString(dataTypeItems)
-//				+", efficiency=" + efficiency
-//				+", isUsed=" + isUsed
 				+"]\n";
 	}
 	/**
@@ -208,8 +199,6 @@ public class Task implements Comparable<Task>{
 			//descending order
 			return task2Request.compareTo(task1Request);
 
-			//ascending order
-			//return task1Request.compareTo(task2Request);
 		}
 	};
 	public static Comparator<Task> TaskRequestComparatorAsc=new Comparator<Task>() {
@@ -219,7 +208,7 @@ public class Task implements Comparable<Task>{
 			Double task2Request=task2.getRequest();
 
 
-			//ascending order
+
 			return task1Request.compareTo(task2Request);
 		}
 	};

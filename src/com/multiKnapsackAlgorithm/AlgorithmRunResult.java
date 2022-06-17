@@ -13,9 +13,9 @@ public class AlgorithmRunResult {
     private Integer deletedTasks;// deleted tasks after local search from DSTA
     private String[] serverAssignment;
     private Integer throughput;
-    private Double phase2totalProfit;
-    private String[] phase2serverAssignment;
-    private Integer phase2throughput;
+    private Double dstarTotalProfit;
+    private String[] dstarServerAssignment;
+    private Integer dstarThroughput;
     private Double maxProfit;
     private Double minDDSTA;
     private Double minDLS;
@@ -53,11 +53,11 @@ public class AlgorithmRunResult {
         this.elapsedTime = elapsedTime;
     }
 
-    public long getElapsedTimeR() { // for DSTAR
+    public long getElapsedTimeDstar() { // for DSTAR
         return elapsedTimeR;
     }
 
-    public void setElapsedTimeR(long elapsedTime) {
+    public void setElapsedTimeDstar(long elapsedTime) {
         this.elapsedTimeR = elapsedTime;
     }
 
@@ -71,19 +71,19 @@ public class AlgorithmRunResult {
     }
 
 
-    public Double getTotalProfitphase2() {
-        return phase2totalProfit;
+    public Double getTotalProfitDstar() {
+        return dstarTotalProfit;
     }
 
-    public void setTotalProfitphase2(Double totalProfit) {
-        this.phase2totalProfit = totalProfit;
+    public void setTotalProfitDstar(Double totalProfit) {
+        this.dstarTotalProfit = totalProfit;
     }
 
-    public Integer getTotalDataSizephase2() {
+    public Integer getTotalDataSizeDstar() {
         return totalDataSizeSet;
     }
 
-    public void setTotalDataSizephase2(Integer totalDataSize) {
+    public void setTotalDataSizeDstar(Integer totalDataSize) {
         this.totalDataSizeSet = totalDataSize;
     }
 
@@ -113,12 +113,12 @@ public class AlgorithmRunResult {
 
     }
 
-    public void setServerAssignmentphase2(String [] servers) {
-        this.phase2serverAssignment = servers;
+    public void setServerAssignmentDstar(String [] servers) {
+        this.dstarServerAssignment = servers;
 
     }
-    public String[] getServerAssignmentphase2() {
-        return phase2serverAssignment;
+    public String[] getServerAssignmentDstar() {
+        return dstarServerAssignment;
 
     }
 
@@ -138,14 +138,14 @@ public class AlgorithmRunResult {
 
 
 
-    public void setThroughputphase2(Integer thr) {
-        this.phase2throughput = thr;
+    public void setThroughputDstar(Integer thr) {
+        this.dstarThroughput = thr;
     }
 
-    public float getThroughputphase2() {
+    public float getThroughputDstar() {
 
         float th= Math.round(throughput*100);
-        th= (float)phase2throughput/tasksNm;
+        th= (float) dstarThroughput /tasksNm;
         th=  Math.round(th*100);// round up to 2 decimal
         th= th/100;
         return th;
@@ -153,8 +153,8 @@ public class AlgorithmRunResult {
 
     }
 
-    public int getAddedTasksphase2() {
-        return phase2throughput-throughput+deletedTasks;
+    public int getAddedTasksDstar() {
+        return dstarThroughput -throughput+deletedTasks;
     }
 
 

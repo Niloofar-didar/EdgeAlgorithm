@@ -10,7 +10,7 @@ public class Knapsack extends KnapsackComparator implements Comparable<Knapsack>
     private ArrayList<Task> taskItems;
     private boolean isUsed;
     private Double value;
-    //This property is just being used by PGreedyAlgorithmV2
+
     private Double totalDataSize;
 	public Set<Integer> indexOfData= new HashSet<>();// index of data that a server has
 

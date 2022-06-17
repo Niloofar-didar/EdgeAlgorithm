@@ -504,7 +504,7 @@ public abstract class GreedyAlgorithmBase {
 
         return 0;
     }
-    /*Helper methods for DGreedyAlgorithm*/
+
     public ArrayList<Task> updateTaskItemsByDataTypeNomination(int jTilda){
         for (Task taskItem:taskItems) {
             taskItem.setDataTypeNominated(false);
@@ -518,7 +518,7 @@ public abstract class GreedyAlgorithmBase {
         boolean isNominated= taskItem.getDataTypeItems()[jTilda].getSize()!=0;
         return isNominated;
     }
-    /*End: Helper methods for DGreedyAlgorithm*/
+
     ///Greedy Algorithm 3: without sharing Data
     public  ArrayList<Integer> getArgsMax(Double[] product){
         double max = Arrays.stream(product).max(Double::compareTo).get();
@@ -795,7 +795,7 @@ public  ArrayList<Integer> getArgsMax(Integer[] product){
     }
 
 
-    String[] getserversSetAssignment( ArrayList<Task> taskSet ){// for phase 2, after local search returns an array of assigned task indexes for each server-> up to the num of servers
+    String[] getserversSetAssignment( ArrayList<Task> taskSet ){//DSTAR returns an array of assigned task indexes for each server-> up to the num of servers
 
         String [] servers= new String[knapsackItems.length];
         Arrays.fill(servers, "");
@@ -825,7 +825,7 @@ public  ArrayList<Integer> getArgsMax(Integer[] product){
 
 
 
-    String[] getserversAssignment( ArrayList<Task> taskItems ){// for phase 1 returns an array of assigned task indexes for each server-> up to the num of servers
+    String[] getserversAssignment( ArrayList<Task> taskItems ){// for DSTA: returns an array of assigned task indexes for each server-> up to the num of servers
 
         String [] servers= new String[knapsackItems.length];
         Arrays.fill(servers, "");

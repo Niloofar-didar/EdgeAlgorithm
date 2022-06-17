@@ -1,21 +1,29 @@
 package com.multiKnapsackAlgorithm;
 
+/**
+ * This class includes the operations for DSTAR algorithm
+ * First DSTA runs and then DSTAR gets the result of DSTA to reallocate the tasks and improve the overall profit
+ *
+ */
+
+
+
+
 import com.multiKnapsackAlgorithm.hm.Logger;
 
 import java.time.Duration;
 import java.time.Instant;
 import java.util.*;
-import java.util.stream.IntStream;
 
-public class GreedyAlgorithmPhase1 extends GreedyAlgorithmBase{
-	public GreedyAlgorithmPhase1(String inputFilePath){
+public class GreedyAlgorithms extends GreedyAlgorithmBase{
+	public GreedyAlgorithms(String inputFilePath){
 		super(inputFilePath);
 	}
-	public GreedyAlgorithmPhase1(Integer[][] taskDataTypeMatrix, Double[] requestItems, Double[] profitItems) {
+	public GreedyAlgorithms(Integer[][] taskDataTypeMatrix, Double[] requestItems, Double[] profitItems) {
 		super(taskDataTypeMatrix, requestItems, profitItems);
 	}
 
-	public GreedyAlgorithmPhase1(Integer[][] taskDataTypeMatrix, Double[] requestItems, Double[] profitItems, Knapsack[] knapsackItems) {
+	public GreedyAlgorithms(Integer[][] taskDataTypeMatrix, Double[] requestItems, Double[] profitItems, Knapsack[] knapsackItems) {
 		super(taskDataTypeMatrix, requestItems, profitItems, knapsackItems);
 	}
 
@@ -58,11 +66,6 @@ public class GreedyAlgorithmPhase1 extends GreedyAlgorithmBase{
 			Logger.message(Arrays.toString(sumPrime));
 			Logger.message("MultiKnapsack Algorithm -> Run ->\tWhile Loop ->Set SumPrime Property: Initiative: End" );
 
-//			Logger.message("MultiKnapsack Algorithm -> Run ->\tWhile Loop ->Adding Mock candidTaskItems: Begin" );
-//			candidTaskItems.add(taskItems.get(0));
-//			candidTaskItems.add(taskItems.get(3));
-//			Logger.message(Arrays.deepToString(candidTaskItems.toArray()));
-//			Logger.message("MultiKnapsack Algorithm -> Run ->\tWhile Loop ->Adding Mock candidTaskItems: End" );
 
 			Logger.message("MultiKnapsack Algorithm -> Run ->\tWhile Loop ->Set SumPrime By CandidTaskItems: Begin" );
 			setSumPrimeByCandidTaskItems(); // updates s'k of data that belongs to the candidate tasks and their size is nonzero and are not assigned yet
@@ -78,16 +81,7 @@ public class GreedyAlgorithmPhase1 extends GreedyAlgorithmBase{
 			Logger.message("MultiKnapsack Algorithm -> Run ->\tWhile Loop ->Set SumPrimeSupport: End" );
 
 			Logger.message("MultiKnapsack Algorithm -> Run ->\tWhile Loop ->Set jTilda: Begin" );
-/*
-JTilda first implementation without considering that for calculating
-jTilda, we need an array first
-* */
-//			if(sumPrimeSupport>0){
-//
-//				jTilda=getArgMax(getSum(),getSumPrime());
-//			}else{
-//				jTilda=getArgMax(getSum());
-//			}
+
 			ArrayList<Integer> jTildaArray=new ArrayList<>();
 			if (sumPrimeSupport > 0) {
 				jTildaArray=getArgsMax(getSum(),getSumPrime());// gets the index of data with largest shared data
@@ -179,16 +173,7 @@ jTilda, we need an array first
 
 				}
 			}
-			//count of servers issue 19
-//			int candidDataTypeItemCounter=0;
-//			for (Knapsack knapsackItem : getKnapsackItems()) {
-//				if(knapsackItem.indexOfData.contains(jTilda))
-//				   candidDataTypeItemCounter++;
-//			}
-
-
-
-			Logger.message("MultiKnapsack Algorithm -> Run ->\tknapsack task assignment: End");
+		Logger.message("MultiKnapsack Algorithm -> Run ->\tknapsack task assignment: End");
 			// stores assigned data type information
 			setCandidDataTypeItems(DataType.union(getCandidDataTypeItems(),getDataTypeItems()[jTilda]));
 			//setTotalDataSize(getTotalDataSize() + getDataTypeItems()[jTilda].getSize()*candidDataTypeItemCounter);// this is wrong, just gets back dataType row one
@@ -250,7 +235,7 @@ jTilda, we need an array first
 		Task[] sortedSetItems=new Task[getSetItems().size()];
 		sortedSetItems= getSetItems().toArray(sortedSetItems) ;
 		Arrays.sort(sortedSetItems, Collections.reverseOrder());// sorts array of set based on the efficiency parameter
-        //System.out.println(sortedSetItems[0]);
+
 
 		for (Task sortedsetItem:sortedSetItems) {// start to assign the task set to the servers
 
@@ -296,7 +281,7 @@ jTilda, we need an array first
 			}
 			}
 
-//********************************///////////
+
 
 		long runTimeDSTAR = Duration.between(runStartDSTAR, runEndDSTAR).toMillis();
 		setETimeDSTAR(runTimeDSTAR);

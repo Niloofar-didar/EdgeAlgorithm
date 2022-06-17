@@ -3,9 +3,6 @@ package com.multiKnapsackAlgorithm;
 import com.multiKnapsackAlgorithm.PGreedy.PGreedyAlgorithm;
 import com.multiKnapsackAlgorithm.hm.ResultWriter;
 
-import java.nio.file.Path;
-import java.time.Duration;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -52,7 +49,7 @@ public class TestCaseRunner {
 
 
         greedyAlgorithmInstances= new GreedyAlgorithmBase[]{
-                  new GreedyAlgorithmPhase1(testCaseFilePath),new PGreedyAlgorithm(testCaseFilePath),
+                  new GreedyAlgorithms(testCaseFilePath),new PGreedyAlgorithm(testCaseFilePath),
         };
 
 
@@ -65,7 +62,7 @@ public class TestCaseRunner {
             System.out.println("Algorithm: "+algorithmName);
             algorithmRunResult.setAlgorithmName(algorithmName);
 
-            if(!algorithmName.equals("GreedyAlgorithmPhase1")) { // for DSTA and DSTAR is diff
+            if(!algorithmName.equals("GreedyAlgorithms")) { // for DSTA and DSTAR is diff
                 //Instant runStart = Instant.now();
                 oGreedyAlgorithmItem.run();
                // Instant runEnd = Instant.now();
@@ -80,7 +77,7 @@ public class TestCaseRunner {
                 System.out.println("Run: TimeElapsed DSTA: " + oGreedyAlgorithmItem.getETimeDSTA());
                 algorithmRunResult.setElapsedTime(oGreedyAlgorithmItem.getETimeDSTA());
                 System.out.println("Run: TimeElapsed DSTAR portion: " + oGreedyAlgorithmItem.getETimeDSTAR());
-                algorithmRunResult.setElapsedTimeR(oGreedyAlgorithmItem.getETimeDSTAR());
+                algorithmRunResult.setElapsedTimeDstar(oGreedyAlgorithmItem.getETimeDSTAR());
 
             }
 
@@ -105,15 +102,15 @@ public class TestCaseRunner {
 
 
             /// for phase 2- reallocation phase results:
-            if(algorithmName.equals("GreedyAlgorithmPhase1")) {
-                algorithmRunResult.setTotalProfitphase2(oGreedyAlgorithmItem.getTotalProfitset());
-                algorithmRunResult.setTotalDataSizephase2(oGreedyAlgorithmItem.getTotalDataSizeSet());
+            if(algorithmName.equals("GreedyAlgorithms")) {
+                algorithmRunResult.setTotalProfitDstar(oGreedyAlgorithmItem.getTotalProfitset());
+                algorithmRunResult.setTotalDataSizeDstar(oGreedyAlgorithmItem.getTotalDataSizeSet());
                 String[] serverLocalS = oGreedyAlgorithmItem.getserversSetAssignment(oGreedyAlgorithmItem.getSetItems());
                 List<String> sLocal = Arrays.asList(serverLocalS);
                 int count = checkDataSharing(sDSTA, sLocal);
-                algorithmRunResult.setServerAssignmentphase2(serverLocalS);
+                algorithmRunResult.setServerAssignmentDstar(serverLocalS);
                 algorithmRunResult.setDeletedTasks(count);
-                algorithmRunResult.setThroughputphase2(oGreedyAlgorithmItem.getSetThroughput(oGreedyAlgorithmItem.getSetItems())); // gets set
+                algorithmRunResult.setThroughputDstar(oGreedyAlgorithmItem.getSetThroughput(oGreedyAlgorithmItem.getSetItems())); // gets set
                 algorithmRunResult.setMaxProfit(oGreedyAlgorithmItem.getMaxProfit());
                 //algorithmRunResult.setminDataSize_DSTA(oGreedyAlgorithmItem.getMinTotDatDSTA());
                // algorithmRunResult.setminDataSize_LS(oGreedyAlgorithmItem.getMinTotDatLS());
@@ -237,17 +234,17 @@ public class TestCaseRunner {
                 add(String.valueOf(runResult.getTotalDataSize()));
                 add(Arrays.toString(runResult.getServerAssignment()));
                 add(String.valueOf(runResult.getThroughput()));
-                if(runResult.getAlgorithmName().equals("GreedyAlgorithmPhase1")) {
-                    add(String.valueOf(runResult.getTotalProfitphase2()));// phase 2 profit
-                    add(String.valueOf(runResult.getTotalDataSizephase2()));// phase2 datasharing
-                    add(Arrays.toString(runResult.getServerAssignmentphase2())); // phase 2  server ass
-                    add(String.valueOf(runResult.getThroughputphase2())); //phase 2  thr
+                if(runResult.getAlgorithmName().equals("GreedyAlgorithms")) {
+                    add(String.valueOf(runResult.getTotalProfitDstar()));// phase 2 profit
+                    add(String.valueOf(runResult.getTotalDataSizeDstar()));// phase2 datasharing
+                    add(Arrays.toString(runResult.getServerAssignmentDstar())); // phase 2  server ass
+                    add(String.valueOf(runResult.getThroughputDstar())); //phase 2  thr
                     //add(String.valueOf(runResult.getDeletedTasks()));
-                    add(String.valueOf(runResult.getAddedTasksphase2()));
+                    add(String.valueOf(runResult.getAddedTasksDstar()));
                     add(String.valueOf(runResult.getMaxProfit()));
                     //add(String.valueOf(runResult.getminDataSize_DSTA()));
                     //add(String.valueOf(runResult.getminDataSize_LS()));
-                    add(String.valueOf(runResult.getElapsedTimeR()));
+                    add(String.valueOf(runResult.getElapsedTimeDstar()));
                 }
 
             }};
